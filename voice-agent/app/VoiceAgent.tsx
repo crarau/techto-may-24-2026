@@ -11,23 +11,52 @@ type Props = {
 };
 
 // Heuristic: pull a purchase (item + price) out of a spoken line so the voice
-// path can show the same verdict card the text chat shows. Digit prices only
-// (STT outputs digits for amounts); buy-intent gated to avoid false cards.
+// path can show the same verdict card the text chat shows. Handles digit prices
+// ("$300") AND spelled-out prices ("three hundred dollars"), since STT spells
+// numbers out. Buy-intent gated to avoid false cards.
+const NUM_WORDS: Record<string, number> = {
+  zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8,
+  nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15,
+  sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20, thirty: 30,
+  forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90,
+  hundred: 100, thousand: 1000,
+};
+const NUM_RE = Object.keys(NUM_WORDS).join("|");
+const WORD_NUM = new RegExp(`\\b((?:${NUM_RE})(?:[\\s-]+(?:${NUM_RE}))*)\\b`, "i");
+
+function spelledToNumber(phrase: string): number | null {
+  let total = 0;
+  let current = 0;
+  for (const w of phrase.toLowerCase().split(/[\s-]+/)) {
+    const v = NUM_WORDS[w];
+    if (v == null) continue;
+    if (v === 100) current = (current || 1) * 100;
+    else if (v === 1000) { total += (current || 1) * 1000; current = 0; }
+    else current += v;
+  }
+  return total + current || null;
+}
+
 function parsePurchase(text: string): { item: string; price: number } | null {
   const lower = text.toLowerCase();
   if (!/\b(buy|buying|cop|copping|cope|purchase|afford|grab|get|getting|spend|worth it|should i)\b/.test(lower))
     return null;
-  const m = lower.match(/\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*(?:dollars?|bucks)/);
-  if (!m) return null;
-  const price = parseFloat((m[1] ?? m[2]).replace(/,/g, ""));
+  let price: number | null = null;
+  const d = lower.match(/\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*(?:dollars?|bucks)/);
+  if (d) price = parseFloat((d[1] ?? d[2]).replace(/,/g, ""));
+  if (!price) {
+    const wm = lower.match(WORD_NUM);
+    if (wm) price = spelledToNumber(wm[1]);
+  }
   if (!price || price <= 0) return null;
 
   const item =
     text
       .replace(/\$\s?\d[\d,]*(?:\.\d+)?/g, "")
       .replace(/\d[\d,]*(?:\.\d+)?\s*(?:dollars?|bucks)/gi, "")
+      .replace(new RegExp(`\\b(?:${NUM_RE})\\b`, "gi"), "")
       .replace(
-        /\b(dollars?|bucks|should i|can i|do you think|i should|buy|buying|cop|copping|cope|purchase|afford|grab|get|getting|spend|worth it|a|an|the|these|this|those|for|on|pair of|of|some|now|right)\b/gi,
+        /\b(dollars?|bucks|tryna|wanna|gonna|should i|can i|do you think|i should|buy|buying|cop|copping|cope|purchase|afford|grab|get|getting|spend|worth it|and|a|an|the|these|this|those|for|on|pair of|of|some|now|right)\b/gi,
         ""
       )
       .replace(/[?.!,]/g, "")
