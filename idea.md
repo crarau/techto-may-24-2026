@@ -179,3 +179,39 @@ Why this scores:
 - **Google ADK** (Agent Development Kit): worth a short spike. If Tangerine uses it, demoing on the same rails wins points with both Tangerine judges. Confirm what it is and whether it works with Claude or only Gemini.
 - **Gemini Live**: voice-to-voice low-latency. Strong candidate for the demo's wow moment. Replaces or supplements the original ElevenLabs plan.
 - Decision point on voice stack (ElevenLabs vs Gemini Live) by 11:30am.
+
+---
+
+## Pitch language (from third Tangerine conversation, delivery/governance)
+
+Snippets to mirror verbatim in the 3-minute video. These are Tangerine's own words about their strategic positioning. Using them tells judges we listened.
+
+### Snippet 1: their stated niche
+> "More options and a unified interface that simplifies your financial management. May not translate to big market share, but definitely translates to something no one else offers."
+
+**Use in pitch**: frame our agent as "a unified interface that simplifies a financial decision." One voice query collapses budget, purchase history, savings trajectory, and alternatives into a single answer. That phrase is Tangerine's own strategy in their own words.
+
+### Snippet 2: speed as competitive advantage
+> "Bigger banks find it harder to get there because of broader customer base and more personas. Tangerine staying small is intentional. With AI and tech forward, it's all about speed."
+
+**Use in pitch**: "RBC has 50 layers of leadership. This product is the kind a lean bank can ship fast that big banks can't get approved in a year." Lean = Tangerine's identity. We built ours in 7 hours; that lands the point.
+
+### Snippet 3: customer-need-first, not market-share
+> "Not competing with the big banks. Creating a niche to attract the right kind of people. Look at the customer and just give them what they need."
+
+**Use in pitch**: "Every family makes purchase decisions weekly. Nobody has built the tool that actually helps in that moment. That's the niche." Frame the wedge as a customer-need gap, not a feature gap.
+
+### Snippet 4: the parent (Scotiabank) is a follower
+> "Skillshare [Scotiabank] is a follower. RBC has been the first. The point is how we create that niche for ourselves and one of the first unique experiences."
+
+**Use in pitch (lightly)**: don't name competitors in the video. But internally: judges from Tangerine are hungry for "first-mover" framing within their constraints. Position our agent as a "first" of its kind in the Canadian retail-banking AI space.
+
+---
+
+## Build tactic (Chip's takeaway from that conversation)
+
+> "We can shape everything in a demo in two hours. Figure out the nail that is positioning. Figure out positioning, the mock-ups, make sure it cohesively makes sense. Maybe throw some voice agents just for the sake of the demo. Something to catch their eye. Not the value, but eye-catching."
+
+**Implication for Luca's lane**: voice does NOT need full bidirectional Gemini Live integration. A single pre-recorded or mock voice exchange that looks live in the demo video is enough. This cuts Luca's scope by ~60% and frees him to focus on the visual mockup that carries the unified-interface story.
+
+**Implication for the whole team**: lock the positioning and mockup shape first (next ~30 minutes), then code the minimum that proves it. Order of work: positioning → mockup → backend just-enough → voice cosmetic. Not the reverse.
