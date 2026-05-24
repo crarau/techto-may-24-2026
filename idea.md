@@ -98,3 +98,63 @@ A 2-person team (vs the default 4) forces aggressive scope cuts. The math: 7 hou
 - Realistic dataset that looks like a real Canadian family ledger, not Faker output. Judges from Tangerine will spot synthetic data instantly.
 - Categorization taxonomy that matches how Tangerine likely structures their own data (groceries vs dining, recurring vs one-off, household vs personal).
 - A demo narrative grounded in actual family financial pain, not generic "save money" framing. This is the cheapest path to the full 10 points on "real-world problem."
+
+---
+
+## Tangerine Intel (from on-site conversations)
+
+### From the PM
+- Tangerine's first AI use case in production is **investment trends + graphs** (portfolio analytics). That's where the money is right now.
+- 2 to 3 year roadmap: compete with Wealthsimple. Fast trade. Tangerine is building an AI hub to enable that.
+- They use customer behavior data to **auto-offer personalized products** (e.g., savings hits threshold → offers HISA). Side effect of analytics, not the headline.
+- **No sandbox data for us.** We mock. Faker output flagged as risk.
+
+### From the AI engineer (self-described "closest to everything Tangerine has done in AI")
+- **Personalization is THE big trend.** Two segments to think about:
+  - Gen Z: slang, vibe, gamified.
+  - Elders: voice, slow pacing. He shipped a Tangerine voice agent and elders said it talks too fast. He called it eye-opening.
+- Tangerine customer split: under 40 is biggest, plus a meaningful elder cohort.
+- Tangerine stack: **Google ADK + Gemini Live = 90% of what they use.**
+- **Gemini Live is voice-to-voice** (skips the STT to LLM to TTS chain), low latency.
+- Gemini Enterprise edition. Data on Google's servers, not used for training.
+- He flagged that another AI hackathon already proposed something similar to the original family-finance idea. **We need a sharper niche.**
+
+### Philosophy that resonated (and we should encode in the pitch)
+- "AI is the 1%. The other 99% is deterministic." Rules engine first, LLM only for fuzzy edges. This will score well with the AI engineer judge.
+- Niche first. Nail one thing. Don't ship a generic finance dashboard.
+- Numbers change behavior. Families have 20+ transactions a week. The wife asks "are we spending too much on groceries?" and nobody can answer. That gap is the wedge.
+
+---
+
+## Angle Brainstorm (post-conversations)
+
+Ranked by fit with the 2-person team + Tangerine alignment + judging criteria.
+
+| # | Angle | Niche | Deterministic core | AI 1% | Sponsor fit |
+|---|---|---|---|---|---|
+| 1 | **Grocery price-over-time** | Same SKU 6 months ago vs today. Per-family baseline. | Price index per item across receipts. | Fuzzy product matching across stores. | Tangerine (family pain). |
+| 2 | **Subscription audit agent** | Detect recurring charges, flag unused, draft cancellation. | Recurring-charge detection by amount + merchant + cadence. | Cancellation copy + classify "used vs not." | Tangerine. |
+| 3 | **Trip cost decomposer** | Location + date window → full cost breakdown. | Geo + time window query over txns. | Natural language to query. | Tangerine + ElevenLabs voice. |
+| 4 | **"Should we buy this?" agent** | Decision support given full family context. | Pulls budget, pace, similar past purchases. | Reasoning + recommendation. | Tangerine (behavior change). |
+| 5 | **Elder voice coach (slow voice)** | Voice-first, deliberately slow, deliberate pacing. | Same finance pipeline. | Gemini Live with slow speech profile. | Direct differentiator the AI judge gave us. |
+| 6 | **Gen Z gamified literacy** | Slang dashboard, vibe-scored spend. | Categorization + streaks. | Slang generation + tone matching. | Tangerine (Gen Z personalization). |
+| 7 | **Investment-trigger consumer side** | Mirror what Tangerine does internally: nudge when balance hits threshold. | Threshold detection. | Recommendation framing. | Tangerine (rides their roadmap). |
+| 8 | **Annualized behavior nudge** | "$15/wk dining = $780/yr = a flight to Lisbon." | Recurring spend + annualization math. | Narrative framing. | Tangerine. |
+
+### Recommended bundle: "Family Finance OS — niche on cross-time comparison"
+
+Combine #1 + #2 + #3 with a Gemini Live voice front door. One demo, three sharp answers no other app gives:
+1. "How much more are we paying for the same groceries vs 6 months ago?"
+2. "Which subscriptions did we use less than twice in the last 60 days?"
+3. "What did the Lisbon trip cost us?"
+
+Why this scores:
+- Each query is a niche the family-finance category genuinely fails at today.
+- Pipeline is 99% deterministic (SKU matching, recurrence detection, geo+date filter). AI is the natural-language layer + the voice. Matches the Tangerine AI engineer's philosophy.
+- One Gemini Live voice exchange = the delight criterion, in his stack.
+- Pablo's finance background drives the SKU normalization + categorization, which is the actual unsolved problem in this space.
+
+### Open tech investigations
+- **Google ADK** (Agent Development Kit): worth a short spike. If Tangerine uses it, demoing on the same rails wins points with both Tangerine judges. Confirm what it is and whether it works with Claude or only Gemini.
+- **Gemini Live**: voice-to-voice low-latency. Strong candidate for the demo's wow moment. Replaces or supplements the original ElevenLabs plan.
+- Decision point on voice stack (ElevenLabs vs Gemini Live) by 11:30am.
