@@ -18,7 +18,7 @@ from urllib.parse import urlparse, parse_qs
 import engine  # engine/engine.py (same dir is on sys.path when run as a script)
 
 PORT = 8000
-DECISION_COLOR = {"COP": "#1f9d55", "WAIT": "#d97706", "DROP": "#dc2626"}
+DECISION_COLOR = {"COP": "#1f9d55", "WAIT": "#d97706", "SKIP": "#64748b", "DROP": "#dc2626"}
 
 STYLE = """
   body { font: 16px/1.5 system-ui, sans-serif; max-width: 760px; margin: 32px auto;

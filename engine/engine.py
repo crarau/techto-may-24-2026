@@ -2,7 +2,7 @@
 """
 Deterministic decision engine for the "Should I Cop This?" agent.
 
-This is the 99% — pure, rule-based functions over a persona JSON file
+This is the 99% - pure, rule-based functions over a persona JSON file
 (no LLM, no network). The agent layer calls these tools and only *narrates*
 the result; it never invents numbers.
 
@@ -24,6 +24,30 @@ NON_SPEND_CATEGORIES = {"income", "transfer_in", "transfer_out"}
 # Account products that hold spendable cash (not credit, not locked-in).
 LIQUID_PRODUCTS = ("Chequing", "Savings")
 NON_LIQUID_HINTS = ("Mastercard", "Credit", "GIC", "Mutual Fund", "RIF", "TFSA", "Children")
+
+# Essentials - never flagged as a discretionary "leak" (don't shame someone's groceries).
+NEEDS = {"groceries", "transit", "housing", "utilities", "pharmacy", "health"}
+
+# Fallback keyword -> category for items that don't match the persona's own merchants.
+# Scanned longest-key-first so "uber eats" (dining) beats "uber" (transit).
+KEYWORD_CATEGORY = {
+    "coffee": "coffee", "latte": "coffee", "espresso": "coffee", "cappuccino": "coffee",
+    "starbucks": "coffee", "tim hortons": "coffee",
+    "mcdonald": "dining", "burger": "dining", "pizza": "dining", "sushi": "dining",
+    "fries": "dining", "doordash": "dining", "uber eats": "dining", "takeout": "dining",
+    "restaurant": "dining", "dinner": "dining", "lunch": "dining", "chipotle": "dining",
+    "nando": "dining", "five guys": "dining", "shawarma": "dining",
+    "uber": "transit", "lyft": "transit", "presto": "transit", "ttc": "transit", "gas": "transit",
+    "sephora": "shopping", "aritzia": "shopping", "amazon": "shopping", "winners": "shopping",
+    "indigo": "shopping", "hoodie": "shopping", "shoes": "shopping", "sneaker": "shopping",
+    "jordan": "shopping", "clothes": "shopping", "makeup": "shopping", "skincare": "shopping",
+    "airpods": "shopping", "headphone": "shopping", "earbuds": "shopping", "laptop": "shopping",
+    "iphone": "shopping", "ps5": "shopping", "playstation": "shopping", "console": "shopping",
+    "xbox": "shopping", "nintendo": "shopping",
+    "concert": "entertainment", "ticket": "entertainment", "movie": "entertainment",
+    "festival": "entertainment", "steam": "gaming",
+    "grocery": "groceries", "groceries": "groceries",
+}
 
 
 # ---------- loading ----------
@@ -152,6 +176,69 @@ def recent_discretionary_count(family: dict, days: int = 7) -> int:
     return n
 
 
+def _ordinal(n: int) -> str:
+    if 11 <= (n % 100) <= 13:
+        return f"{n}th"
+    return f"{n}{ {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th') }"
+
+
+def _category_lookup(family: dict) -> dict:
+    """Map merchant names (and first words) the persona actually uses -> category,
+    then overlay the static keyword fallbacks."""
+    lut: dict[str, str] = {}
+    for t in family["transactions"]:
+        if t["amount"] >= 0 or t["category"] in NON_SPEND_CATEGORIES:
+            continue
+        m = t["merchant"].lower()
+        lut[m] = t["category"]
+        first = m.split()[0] if m.split() else ""
+        if len(first) >= 4:
+            lut.setdefault(first, t["category"])
+    for kw, cat in KEYWORD_CATEGORY.items():
+        lut.setdefault(kw, cat)
+    return lut
+
+
+def classify_item(family: dict, item: str) -> tuple[str | None, bool]:
+    """Classify a typed item into a spend category and whether it's a need.
+    Grounded in the persona's real merchants first, keyword fallback second."""
+    item_l = item.lower()
+    lut = _category_lookup(family)
+    for key in sorted(lut, key=len, reverse=True):  # longest = most specific
+        if len(key) >= 4 and key in item_l:
+            cat = lut[key]
+            return cat, cat in NEEDS
+    return None, False
+
+
+def category_pace(family: dict, category: str | None) -> dict | None:
+    """Both windows at once: chronic monthly rate + acute 7-day spike for a category."""
+    if not category:
+        return None
+    today = _today(family)
+    recurring = {r["merchant"] for r in family.get("recurring", [])}
+    week_n = month_n = 0
+    spend30 = 0.0
+    for t in family["transactions"]:
+        if t["amount"] >= 0 or t["category"] != category or t["merchant"] in recurring:
+            continue
+        days = (today - dt.date.fromisoformat(t["date"])).days
+        if days < 7:
+            week_n += 1
+        if days < 30:
+            month_n += 1
+            spend30 += abs(t["amount"])
+    weekly_avg = month_n / 4.3
+    return {
+        "category": category,
+        "week_count": week_n,
+        "month_count": month_n,
+        "weekly_avg": round(weekly_avg, 1),
+        "annual_cost": round(spend30 * 12, 2),
+        "spike": week_n >= max(3, round(1.5 * weekly_avg)),  # acute: well over her norm
+    }
+
+
 def matching_goal(family: dict, item: str):
     """Find a savings goal whose label references this item (planned purchase)."""
     item_l = item.lower()
@@ -197,6 +284,15 @@ def verdict(family: dict, item: str, price: float) -> dict:
     similar = find_similar_purchases(family, price)
     goal_hit = project_goal_impact(family, price)
 
+    category, is_need = classify_item(family, item)
+    pace = category_pace(family, category)
+    is_want = pace is not None and not is_need
+    emergency = next((g for g in family.get("goals", [])
+                      if "emergency" in g["label"].lower()), None)
+    leak_threshold = max(0.15 * income * 12, emergency["target"] if emergency else 0)
+    spike = is_want and pace["spike"]
+    chronic_leak = is_want and pace["annual_cost"] >= leak_threshold
+
     reasons = []
     freed = [
         {"action": f"cancel {i['merchant']} ({i['reason'].replace('_', ' ')})",
@@ -226,32 +322,64 @@ def verdict(family: dict, item: str, price: float) -> dict:
         else:
             decision = "DROP"
             reasons.append("It's too far outside your current pace to be smart right now.")
-    else:  # impulse / unplanned — verdict scales with how big the hit is
+    else:  # impulse / unplanned - magnitude AND habit pace together
         treat_cap = max(25.0, round(0.03 * income, 2))   # a trivial "treat" for this income
         half_month = round((fixed + disc) / 2, 2)
-        if price <= treat_cap:
-            decision = "COP"
-            reasons.append(f"It's only ${price:.0f} - not worth agonizing over, cop it.")
-            recent = recent_discretionary_count(family)
-            if recent >= 4:
-                reasons.append(
-                    f"Real talk though: that's ~{recent} little buys in the last 7 days. "
-                    f"The small stuff is a chunk of why you're ${abs(net):.0f}/mo in the red."
-                )
-        elif price <= max(net, 0):
-            decision = "COP"
-            reasons.append(f"It fits this month's ${net:.0f} of breathing room.")
-        elif liquid - price >= half_month:
-            decision = "WAIT"
-            reasons.append(
-                f"You *can* cover the ${price:.0f} from your ${liquid:.0f}, but it tightens you "
-                f"up before rent. Sleep on it a day."
-            )
-        else:
+        too_big = price > max(net, 0) and liquid - price < half_month
+        trivial = price <= treat_cap
+        cat = category or "discretionary"
+
+        def leak_line() -> str:
+            line = f"You're running ${pace['annual_cost']:.0f}/yr on {cat}"
+            tgt = emergency["target"] if emergency else 0
+            if tgt and pace["annual_cost"] >= tgt:
+                line += f" - that's your {emergency['label']} {pace['annual_cost'] / tgt:.1f}x over"
+            return line + "."
+
+        if is_need:
+            # essentials: pure magnitude, never shamed for the category
+            if trivial or price <= max(net, 0) or liquid - price >= half_month:
+                decision = "COP"
+                reasons.append(f"${price:.0f} on {cat} - that's a need, handle it.")
+            elif liquid >= price:
+                decision = "WAIT"
+                reasons.append(f"It's a need, but ${price:.0f} is tight right now - spread it if you can.")
+            else:
+                decision = "DROP"
+                reasons.append(f"${price:.0f} is more than your cushion can cover this month.")
+        elif too_big:
             decision = "DROP"
             reasons.append(
                 f"${price:.0f} is too big a hit on a ${liquid:.0f} cushion when you're already "
                 f"-${abs(net):.0f}/mo - it digs into rent money."
+            )
+        elif spike:
+            decision = "SKIP"
+            reasons.append(
+                f"Pump the brakes - that's your {_ordinal(pace['week_count'])} {cat} THIS WEEK, "
+                f"way over your usual ~{pace['weekly_avg']:.0f}/wk."
+            )
+            reasons.append(leak_line())
+        elif chronic_leak:
+            decision = "SKIP"
+            reasons.append(f"${price:.0f} on its own is fine, but {cat} is your leak. " + leak_line())
+            reasons.append("Skip this one and bank it toward a goal.")
+        elif trivial:
+            decision = "COP"
+            reasons.append(f"It's only ${price:.0f} - cop it.")
+            if is_want and pace["month_count"] >= 3:
+                reasons.append(
+                    f"Heads up: ~{pace['month_count']} {cat} a month "
+                    f"(${pace['annual_cost']:.0f}/yr) - chronic, not a crisis."
+                )
+        elif price <= max(net, 0):
+            decision = "COP"
+            reasons.append(f"It fits this month's ${net:.0f} of breathing room.")
+        else:
+            decision = "WAIT"
+            reasons.append(
+                f"You *can* cover the ${price:.0f} from your ${liquid:.0f}, but it tightens you "
+                f"up before rent. Sleep on it a day."
             )
 
     if waste["items"] and decision != "COP":
@@ -268,11 +396,13 @@ def verdict(family: dict, item: str, price: float) -> dict:
         "item": item,
         "price": price,
         "decision": decision,
-        "affordable_now": decision == "COP",
+        "affordable_now": liquid >= price,   # has the cash - separate from "should you"
         "reasons": reasons,
         "freed_up": freed,
         "goal_impact": goal_hit,
         "aspiration_equiv": aspiration_equiv(family, price),
+        "category": category,
+        "category_pace": pace,
         "context": {
             "monthly_income": income, "fixed_monthly": fixed,
             "discretionary_monthly": disc, "net_monthly": net,
