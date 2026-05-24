@@ -1,0 +1,78 @@
+"use client";
+
+import type { Decision, Verdict } from "../lib/engine";
+
+const STYLES: Record<
+  Decision,
+  { bg: string; ring: string; label: string; blurb: string }
+> = {
+  COP: { bg: "bg-cop", ring: "ring-cop/30", label: "cop it", blurb: "go for it" },
+  WAIT: { bg: "bg-wait", ring: "ring-wait/30", label: "wait", blurb: "almost — not yet" },
+  SKIP: { bg: "bg-skip", ring: "ring-skip/30", label: "skip", blurb: "you can, but don't" },
+  DROP: { bg: "bg-drop", ring: "ring-drop/30", label: "drop", blurb: "not this one" },
+};
+
+export function VerdictCard({ v }: { v: Verdict }) {
+  const s = STYLES[v.decision];
+  return (
+    <div className="pop rounded-[28px] bg-paper border border-line shadow-[0_30px_60px_-25px_rgba(217,78,0,0.35)] overflow-hidden">
+      <div className={`${s.bg} px-7 pt-6 pb-7 text-white relative`}>
+        <div className="flex items-baseline justify-between">
+          <p className="text-white/80 text-sm font-medium lowercase">
+            {v.item} · ${v.price.toLocaleString("en-CA")}
+          </p>
+          <span className="text-[11px] uppercase tracking-widest text-white/70">
+            {v.affordable_now ? "has the cash" : "short on cash"}
+          </span>
+        </div>
+        <div className="mt-2 flex items-end gap-3">
+          <h2 className="font-display text-6xl font-extrabold leading-none lowercase">
+            {s.label}
+          </h2>
+          <span className="mb-1 text-white/85 text-lg lowercase">{s.blurb}</span>
+        </div>
+      </div>
+
+      <div className="px-7 py-6 space-y-4">
+        <ul className="space-y-2.5">
+          {v.reasons.map((r, i) => (
+            <li key={i} className="flex gap-3 text-[15px] leading-snug text-ink">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-tangerine" />
+              <span>{r}</span>
+            </li>
+          ))}
+        </ul>
+
+        {v.freed_up.length > 0 && (
+          <div className="rounded-2xl bg-tangerine-soft/60 border border-tangerine-soft px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-tangerine-deep">
+              free up cash
+            </p>
+            <ul className="mt-1.5 space-y-1">
+              {v.freed_up.map((f, i) => (
+                <li key={i} className="text-sm text-ink/90 flex justify-between gap-3">
+                  <span className="lowercase">{f.action}</span>
+                  <span className="font-semibold whitespace-nowrap">
+                    +${f.annual.toFixed(0)}/yr
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-ink-soft pt-1">
+          {v.goal_impact?.delay_days != null && (
+            <span>
+              sets back <b className="text-ink">{v.goal_impact.goal}</b> by{" "}
+              <b className="text-ink">{v.goal_impact.delay_days} days</b>
+            </span>
+          )}
+          <span>
+            ≈ <b className="text-ink lowercase">{v.aspiration_equiv}</b>
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
