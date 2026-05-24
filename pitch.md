@@ -4,7 +4,7 @@
 
 ## At a glance
 
-- **Persona for the demo**: Maya. 23 years old. Part time barista in Toronto. $1,159 monthly income. 3 active BNPL plans. Saving for an emergency fund she keeps tapping.
+- **Persona for the demo**: Maya. 23 years old. Part time barista in Toronto. $1,159 monthly income. 3 active Klarna and Afterpay installment plans. Saving for an emergency fund she keeps tapping.
 - **The query**: *"should i cop these airpods, two fifty?"*
 - **The reveal**: a generic budget app says "yes, you have $1,452 in checking." Our agent says WAIT, and tells her exactly why with real numbers from her ledger.
 - **The hook for judges**: Tangerine wants personalized AI for under 40 customers. We built it. The 99% is deterministic Python. The 1% is voice and chat that grounds every figure in the engine, never invents one.
@@ -28,7 +28,8 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         Voiceover (or on screen text):
                                         "Maya is 23. Part time barista.
                                         Eleven fifty a month. Three
-                                        active BNPL plans. Saving for
+                                        active Klarna and Afterpay
+                                        plans. Saving for
                                         an emergency fund she keeps
                                         tapping. She wants the AirPods.
                                         Most apps say 'you have fourteen
@@ -96,7 +97,8 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
 2:10    The Tangerine pitch             On screen text or voiceover:
         (30 sec)                        "Tangerine ships personalized
                                         AI to every customer. Under 40
-                                        segment. Real BNPL exposure.
+                                        segment. Real installment-plan
+                                        exposure.
                                         Real save pace. Real verdicts.
                                         Cancel a wasted sub in one
                                         sentence of conversation. We
@@ -124,7 +126,7 @@ Cover the three judging dimensions: real-world problem (10pt), creativity/deligh
 
 1. *"Take the LLM out, you get JSON nobody talks to. Take the engine out, you get a chatbot that invents your balance."* This is the answer to the Notion AI-removal test. Lead with this in the architecture beat.
 2. *"It never invents a figure."* Every number on screen came from the engine. Hold up the receipt.
-3. *"Three BNPL plans, dining up 43% this week, save rate not covering the cushion."* The Maya reveal. The non obvious answer that proves we understand real consumers.
+3. *"Three open Klarna and Afterpay plans, dining up 43% this week, save rate not covering the cushion."* The Maya reveal. The non obvious answer that proves we understand real consumers.
 4. *"Voice and text. Same brain. Same data."* The architecture story in one line. Sells the technical sophistication without slides.
 5. *"Family financial confidence in the voice your customer actually wants to talk to."* The Tangerine pitch line. Mirrors their language back at them.
 6. *"Built today. Voice powered by ElevenLabs. Math powered by us."* The close. Sponsor namecheck.
@@ -161,7 +163,7 @@ The user speaks. ElevenLabs converts speech to text. Claude Sonnet 4.6 receives 
 - Jonathan Murray, Co-Founder, Backboard
 - Ilya Brotzky, CEO, Vanhack
 
-**Tangerine has 2 of 5 judges.** Mirror their language back: family financial confidence, stress reduction, under-40 segment, BNPL exposure, proactive coaching. Backboard's Jonathan Murray will care about the agent architecture story. The Vanhack and Codalio judges care about magic and delight.
+**Tangerine has 2 of 5 judges.** Mirror their language back: family financial confidence, stress reduction, under-40 segment, installment-plan exposure, proactive coaching. Backboard's Jonathan Murray will care about the agent architecture story. The Vanhack and Codalio judges care about magic and delight.
 
 ## The judging north star (verbatim)
 
