@@ -6,6 +6,7 @@ import { VoiceAgent } from "./VoiceAgent";
 import { AskBox } from "./components/AskBox";
 import { VerdictCard } from "./components/VerdictCard";
 import { ProfilePanel } from "./components/ProfilePanel";
+import { Chat } from "./components/Chat";
 import { getPersonas, getProfile, getVerdict, type Profile, type Verdict } from "./lib/engine";
 
 export default function Home() {
@@ -124,6 +125,8 @@ export default function Home() {
           <ConversationProvider>
             <VoiceAgent />
           </ConversationProvider>
+
+          <Chat persona={persona} personaName={profile?.family_name ?? persona} />
         </section>
 
         {/* Proof column */}
