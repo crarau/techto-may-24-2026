@@ -52,13 +52,15 @@ Most personal finance tools stop at category pie charts. We treat the financial 
 
 ---
 
-## Team Analysis — 2 People, Track 2
+## Team Analysis — 4 People, Track 2
 
 ### Team
 - **Pablo** — Finance background. Owns the domain: sample dataset realism, categorization taxonomy, demo narrative, "what families actually care about."
-- **Abdul** — Backend developer. Owns the pipeline: ingestion, SQLite schema, Backboard agent wiring, query interface, voice integration.
+- **Abdul** — Backend developer. Owns the pipeline: ingestion, SQLite schema, agent backend, query interface.
+- **Luca** — Developer. Owns voice + frontend: Gemini Live integration, minimal UI, demo recording surface.
+- **Chip** — Lead. Owns agent orchestration (tool-calling chain), pitch/video narrative, cross-team glue.
 
-A 2-person team (vs the default 4) forces aggressive scope cuts. The math: 7 hours of build time (10am to 5pm), one backend dev, no frontend or design specialist. Anything that requires parallel coding lanes is at risk.
+With 4 lanes we can run ingestion, agent reasoning, voice, and pitch in parallel. The math: 7 hours of build time (10am to 5pm), four parallel workstreams instead of two.
 
 ### Scope cuts (decided up front)
 - **Cut receipt OCR.** Ingest pre-parsed transaction CSV + a few JSON "receipts" Pablo hand-crafts. OCR is a tarpit in a 7-hour build with one dev.
@@ -141,7 +143,26 @@ Ranked by fit with the 2-person team + Tangerine alignment + judging criteria.
 | 7 | **Investment-trigger consumer side** | Mirror what Tangerine does internally: nudge when balance hits threshold. | Threshold detection. | Recommendation framing. | Tangerine (rides their roadmap). |
 | 8 | **Annualized behavior nudge** | "$15/wk dining = $780/yr = a flight to Lisbon." | Recurring spend + annualization math. | Narrative framing. | Tangerine. |
 
-### Recommended bundle: "Family Finance OS — niche on cross-time comparison"
+### Locked niche: "Should We Buy This?" household purchase advisor
+
+Family-aware purchase decision agent. The query is the product: *"Should we buy this $300 stroller?"* The agent answers with a recommendation grounded in the family's actual financial reality, not a generic budget rule.
+
+**What the agent pulls before answering:**
+1. Current month's spend pace vs the family's stated budget.
+2. Similar past purchases (category + price band) and whether they actually got used.
+3. Savings goal trajectory (e.g., "this purchase delays December savings goal by 2 weeks").
+4. Alternative timing or substitution suggestion (e.g., "wait 30 days and this fits the budget without trade-offs").
+
+**Why it scores all three criteria:**
+- *Real-world problem*: every family makes purchase decisions weekly and gets it wrong because the math is invisible in the moment.
+- *Creativity / delight*: voice-led deliberation with the agent thinking aloud is genuinely novel vs static budget pie charts. Gemini Live makes it feel like asking a thoughtful sibling, not querying an app.
+- *Thoughtful AI agent use*: multi-tool context pulling (budget, similar history, projection, alternatives). Not a chatbot, an orchestrated reasoning chain.
+
+**Customer**: Canadian family of 4 (Pablo's domain advantage). Persona for the voice: measured household advisor, deliberate pacing. Specifically NOT a Gen Z buddy — we are leaning on the elder-voice gap the Tangerine AI engineer flagged, but applying that "deliberate pacing" sensibility to family decision-making rather than only elder UX.
+
+**Tangerine fit**: pre-purchase moment is exactly where Tangerine could surface a contextual product (HISA, credit limit increase, savings round-up). We won't build that integration, but we'll frame it in the pitch so judges see the product-side upside.
+
+### Backup bundle (only if we lose the niche): cross-time comparison
 
 Combine #1 + #2 + #3 with a Gemini Live voice front door. One demo, three sharp answers no other app gives:
 1. "How much more are we paying for the same groceries vs 6 months ago?"
