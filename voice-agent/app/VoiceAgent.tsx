@@ -11,25 +11,28 @@ type Props = {
 };
 
 // Heuristic: pull a purchase (item + price) out of a spoken line so the voice
-// path can show the same verdict card the text chat shows.
+// path can show the same verdict card the text chat shows. Digit prices only
+// (STT outputs digits for amounts); buy-intent gated to avoid false cards.
 function parsePurchase(text: string): { item: string; price: number } | null {
   const lower = text.toLowerCase();
-  const intent = /\b(buy|cop|cope|purchase|afford|grab|get|spend|worth it|should i)\b/.test(lower);
+  if (!/\b(buy|buying|cop|copping|cope|purchase|afford|grab|get|getting|spend|worth it|should i)\b/.test(lower))
+    return null;
   const m = lower.match(/\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*(?:dollars?|bucks)/);
-  if (!intent || !m) return null;
+  if (!m) return null;
   const price = parseFloat((m[1] ?? m[2]).replace(/,/g, ""));
   if (!price || price <= 0) return null;
-  let item = text
-    .replace(/\$\s?\d[\d,]*(?:\.\d+)?/g, "")
-    .replace(/\d[\d,]*(?:\.\d+)?\s*(?:dollars?|bucks)/gi, "")
-    .replace(
-      /\b(should i|can i|do you think|i should|buy|cop|cope|purchase|afford|grab|get|spend|worth it|a|an|the|these|this|those|for|on|pair of|of|some|now|right)\b/gi,
-      ""
-    )
-    .replace(/[?.!,]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-  if (!item) item = "this";
+
+  const item =
+    text
+      .replace(/\$\s?\d[\d,]*(?:\.\d+)?/g, "")
+      .replace(/\d[\d,]*(?:\.\d+)?\s*(?:dollars?|bucks)/gi, "")
+      .replace(
+        /\b(dollars?|bucks|should i|can i|do you think|i should|buy|buying|cop|copping|cope|purchase|afford|grab|get|getting|spend|worth it|a|an|the|these|this|those|for|on|pair of|of|some|now|right)\b/gi,
+        ""
+      )
+      .replace(/[?.!,]/g, "")
+      .replace(/\s+/g, " ")
+      .trim() || "this";
   return { item, price };
 }
 
@@ -107,39 +110,60 @@ export function VoiceAgent({ persona, onConversationReady }: Props) {
   const connected = status === "connected";
   const connecting = status === "connecting";
   const speaking = conversation.isSpeaking;
+  const muted = conversation.isMuted;
 
   return (
-    <button
-      onClick={connected ? stop : start}
-      disabled={connecting}
-      title={
-        error
-          ? "voice needs elevenlabs key"
-          : connected
-            ? "end voice"
-            : "start voice"
-      }
-      className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-full text-white shadow-md transition active:scale-95 disabled:opacity-60 ${
-        connected ? "bg-drop" : "bg-tangerine hover:bg-tangerine-deep"
-      } ${speaking ? "halo" : ""}`}
-      aria-label={connected ? "end voice" : "start voice"}
-    >
-      {connected ? (
-        <span className="h-3.5 w-3.5 rounded-[3px] bg-white" />
-      ) : (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"
-            fill="currentColor"
-          />
-          <path
-            d="M19 11a7 7 0 0 1-14 0M12 18v3"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
+    <div className="flex shrink-0 items-center gap-1.5">
+      <button
+        onClick={connected ? stop : start}
+        disabled={connecting}
+        title={
+          error
+            ? "voice needs elevenlabs key"
+            : connected
+              ? "end voice"
+              : "start voice"
+        }
+        className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-full text-white shadow-md transition active:scale-95 disabled:opacity-60 ${
+          connected ? "bg-drop" : "bg-tangerine hover:bg-tangerine-deep"
+        } ${speaking && !muted ? "halo" : ""}`}
+        aria-label={connected ? "end voice" : "start voice"}
+      >
+        {connected ? (
+          <span className="h-3.5 w-3.5 rounded-[3px] bg-white" />
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z" fill="currentColor" />
+            <path d="M19 11a7 7 0 0 1-14 0M12 18v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        )}
+      </button>
+
+      {connected && (
+        <button
+          onClick={() => conversation.setMuted(!muted)}
+          title={muted ? "unmute mic" : "mute mic (let it finish talking)"}
+          aria-label={muted ? "unmute mic" : "mute mic"}
+          className={`grid h-12 w-12 shrink-0 place-items-center rounded-full shadow-md transition active:scale-95 ${
+            muted
+              ? "bg-ink text-white"
+              : "bg-paper border border-line text-ink-soft hover:text-ink"
+          }`}
+        >
+          {muted ? (
+            // mic with a slash (muted)
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-5.4-1.8M9 9v3a3 3 0 0 0 3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              <path d="M19 11a7 7 0 0 1-1.2 3.9M12 18v3M5 5l14 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z" fill="currentColor" />
+              <path d="M19 11a7 7 0 0 1-14 0M12 18v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
+        </button>
       )}
-    </button>
+    </div>
   );
 }
