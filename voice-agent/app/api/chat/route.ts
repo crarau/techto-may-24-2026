@@ -4,19 +4,41 @@ import { ENGINE_URL } from "../../lib/engine";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-const SYSTEM_PROMPT = `You are Bestie — a warm, direct financial companion embedded in the Tangerine app. You help users decide whether to buy something based on their real account data.
-
-Rules:
-- Never invent numbers. Every figure in your response must come from a tool output. If a tool returns no data, say so.
-- Be conversational, warm, lowercase, concise. One to three sentences max after you have the data.
-- Always call get_verdict when the user asks about a purchase. Extract the item name and price from their message.
-- Call get_profile if the user asks about their overall financial situation.
-- After narrating the verdict, end your response — don't pad it out.`;
-
 async function engineGet<T>(path: string): Promise<T> {
   const res = await fetch(`${ENGINE_URL}${path}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`engine ${res.status}: ${await res.text()}`);
   return res.json() as Promise<T>;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildSystemPrompt(p: any): string {
+  const s = p.stats;
+  const subs = p.subscriptions
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((x: any) => `${x.merchant} $${x.monthly}/mo${x.flag ? ` (${x.flag.replace(/_/g, " ")})` : ""}`)
+    .join(", ");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const goals = p.goals.map((g: any) => `${g.label} ($${g.current}/$${g.target})`).join(", ");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cats = p.categories.map((c: any) => `${c.category} $${c.monthly}`).join(", ");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const buys = p.purchases.map((b: any) => `${b.item} $${b.price} (${b.used})`).join(", ");
+
+  return `You are "should i cop this?", a Gen Z money bestie talking to ${p.family_name} (${p.archetype}).
+
+Voice: a real friend — casual, lowercase, slang is fine, brutally honest but caring. Keep replies SHORT and spoken (1-3 sentences). No markdown, no jargon, no bullet lists.
+
+Ground EVERY answer in their real account data below. Never invent a number — quote these.
+
+THEIR MONEY (as of ${p.as_of}):
+- income ~$${s.monthly_income}/mo · fixed costs ~$${s.fixed_monthly}/mo · leftover ~$${s.net_monthly}/mo
+- liquid cash $${s.liquid_balance} · saving ~$${s.monthly_save_rate}/mo
+- subscriptions: ${subs}
+- goals: ${goals}
+- spend by category/mo: ${cats}
+- past buys: ${buys}
+
+When they ask whether to buy a specific thing, CALL get_verdict with the item and price, then deliver its decision (cop it / wait / skip / drop) in your own voice with the reason. Never override the tool's decision. For other money questions, answer straight from the data above.`;
 }
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
@@ -37,6 +59,15 @@ export async function POST(req: Request) {
 
       try {
         const client = new Anthropic();
+
+        // Fetch profile upfront so the system prompt is grounded in real data
+        let systemPrompt: string;
+        try {
+          const profile = await engineGet(`/tools/profile?persona=${encodeURIComponent(persona)}`);
+          systemPrompt = buildSystemPrompt(profile);
+        } catch {
+          systemPrompt = `You are a money bestie. Never invent numbers. Always call get_verdict when the user asks about a purchase.`;
+        }
 
         const tools: Anthropic.Tool[] = [
           {
@@ -73,7 +104,7 @@ export async function POST(req: Request) {
           const resp = await client.messages.create({
             model: "claude-sonnet-4-6",
             max_tokens: 1024,
-            system: SYSTEM_PROMPT,
+            system: systemPrompt,
             tools,
             messages: sdkMessages,
             stream: false,
