@@ -350,8 +350,7 @@ def verdict(family: dict, item: str, price: float) -> dict:
         elif too_big:
             decision = "DROP"
             reasons.append(
-                f"${price:.0f} is too big a hit on a ${liquid:.0f} cushion when you're already "
-                f"-${abs(net):.0f}/mo - it digs into rent money."
+                f"${price:.0f} in one shot is too big a hit on your ${liquid:.0f} cushion right now."
             )
         elif spike:
             decision = "SKIP"
