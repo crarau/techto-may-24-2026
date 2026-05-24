@@ -3,12 +3,14 @@
 import { useConversation } from "@elevenlabs/react";
 import { useCallback, useEffect, useState } from "react";
 import { useTurns } from "./contexts/TurnsContext";
+import { getProfile, voiceSystemPrompt } from "./lib/engine";
 
 type Props = {
+  persona: string;
   onConversationReady: (conv: ReturnType<typeof useConversation>) => void;
 };
 
-export function VoiceAgent({ onConversationReady }: Props) {
+export function VoiceAgent({ persona, onConversationReady }: Props) {
   const { appendTurn } = useTurns();
   const [error, setError] = useState<string | null>(null);
 
@@ -38,11 +40,20 @@ export function VoiceAgent({ onConversationReady }: Props) {
       const res = await fetch("/api/get-signed-url");
       const body = (await res.json()) as { signedUrl?: string; error?: string };
       if (!res.ok || !body.signedUrl) throw new Error(body.error || `HTTP ${res.status}`);
-      conversation.startSession({ signedUrl: body.signedUrl });
+
+      // Inject the selected persona's real financial data so the voice is grounded.
+      let overrides;
+      try {
+        const profile = await getProfile(persona);
+        overrides = { agent: { prompt: { prompt: voiceSystemPrompt(profile) } } };
+      } catch {
+        // engine unreachable — connect anyway (ungrounded)
+      }
+      conversation.startSession({ signedUrl: body.signedUrl, overrides });
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
-  }, [conversation]);
+  }, [conversation, persona]);
 
   const stop = useCallback(() => conversation.endSession(), [conversation]);
 

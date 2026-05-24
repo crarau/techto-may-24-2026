@@ -72,3 +72,28 @@ export const getVerdict = (persona: string, item: string, price: number) =>
 
 export const money = (n: number) =>
   `$${Math.round(n).toLocaleString("en-CA")}`;
+
+/** Grounded system prompt for the voice agent — injected per session as a
+ *  prompt override so the voice knows the selected persona's real numbers. */
+export function voiceSystemPrompt(p: Profile): string {
+  const s = p.stats;
+  const subs = p.subscriptions
+    .map((x) => `${x.merchant} $${x.monthly}/mo${x.flag ? ` (${x.flag.replace(/_/g, " ")})` : ""}`)
+    .join(", ");
+  const goals = p.goals.map((g) => `${g.label} ($${g.current}/$${g.target})`).join(", ");
+  const cats = p.categories.map((c) => `${c.category} $${c.monthly}`).join(", ");
+  const buys = p.purchases.map((b) => `${b.item} $${b.price} (${b.used})`).join(", ");
+  return `You are "should i cop this?", a Gen Z money bestie talking to ${p.family_name} (${p.archetype}).
+
+Voice: a real friend — casual, lowercase, slang is fine, brutally honest but caring. Keep replies SHORT and spoken (1-2 sentences). No jargon, no lists.
+
+Ground EVERY answer in their real account data below. NEVER invent a number — quote these. When they ask whether to buy something, give a clear verdict — cop it / wait / skip / drop — with the reason, based on this data.
+
+THEIR MONEY (as of ${p.as_of}):
+- income ~$${s.monthly_income}/mo · fixed costs ~$${s.fixed_monthly}/mo · leftover ~$${s.net_monthly}/mo
+- liquid cash $${s.liquid_balance} · saving ~$${s.monthly_save_rate}/mo
+- subscriptions: ${subs}
+- goals: ${goals}
+- spend by category/mo: ${cats}
+- past buys: ${buys}`;
+}

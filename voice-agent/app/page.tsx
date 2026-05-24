@@ -84,7 +84,7 @@ function HomeInner() {
         <div className="flex items-center gap-3">
           {/* Voice mic button (hoisted to header) */}
           <ConversationProvider>
-            <VoiceAgent onConversationReady={handleConversationReady} />
+            <VoiceAgent persona={persona} onConversationReady={handleConversationReady} />
           </ConversationProvider>
 
           {/* Persona switcher */}
