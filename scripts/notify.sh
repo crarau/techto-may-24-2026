@@ -5,6 +5,10 @@
 #   scripts/notify.sh <username> <message...>
 #   scripts/notify.sh <username> --file <path>
 #
+# Edit (no username change; webhook edits cannot change username):
+#   scripts/notify.sh --edit <message_id> <message...>
+#   scripts/notify.sh --edit <message_id> --file <path>
+#
 # Delete:
 #   scripts/notify.sh --delete <message_id>
 #
@@ -45,6 +49,25 @@ WEBHOOK="$(resolve_webhook)"
 if [[ "$1" == "--delete" ]]; then
   MSG_ID="${2:?usage: $0 --delete <message_id>}"
   curl -sS -X DELETE "${WEBHOOK}/messages/${MSG_ID}" -w "HTTP %{http_code}\n"
+  exit 0
+fi
+
+if [[ "$1" == "--edit" ]]; then
+  MSG_ID="${2:?usage: $0 --edit <message_id> <message...|--file path>}"
+  shift 2
+  if [[ "${1:-}" == "--file" ]]; then
+    shift
+    MSG="$(cat "${1:?missing file path}")"
+  else
+    MSG="$*"
+  fi
+  PAYLOAD="$(python3 -c 'import json,sys; print(json.dumps({"content": sys.argv[1]}))' "$MSG")"
+  curl -sS -X PATCH "${WEBHOOK}/messages/${MSG_ID}" \
+    -H "Content-Type: application/json" \
+    -d "$PAYLOAD" \
+    -w "\nHTTP %{http_code}\n" \
+    -o /dev/null
+  echo "edited: $MSG_ID"
   exit 0
 fi
 
