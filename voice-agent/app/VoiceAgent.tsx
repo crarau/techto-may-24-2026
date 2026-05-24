@@ -1,26 +1,63 @@
 "use client";
 
 import { useConversation } from "@elevenlabs/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTurns } from "./contexts/TurnsContext";
-import { getProfile, voiceSystemPrompt } from "./lib/engine";
+import { getProfile, getVerdict, voiceSystemPrompt } from "./lib/engine";
 
 type Props = {
   persona: string;
   onConversationReady: (conv: ReturnType<typeof useConversation>) => void;
 };
 
+// Heuristic: pull a purchase (item + price) out of a spoken line so the voice
+// path can show the same verdict card the text chat shows.
+function parsePurchase(text: string): { item: string; price: number } | null {
+  const lower = text.toLowerCase();
+  const intent = /\b(buy|cop|cope|purchase|afford|grab|get|spend|worth it|should i)\b/.test(lower);
+  const m = lower.match(/\$\s?(\d[\d,]*(?:\.\d+)?)|(\d[\d,]*(?:\.\d+)?)\s*(?:dollars?|bucks)/);
+  if (!intent || !m) return null;
+  const price = parseFloat((m[1] ?? m[2]).replace(/,/g, ""));
+  if (!price || price <= 0) return null;
+  let item = text
+    .replace(/\$\s?\d[\d,]*(?:\.\d+)?/g, "")
+    .replace(/\d[\d,]*(?:\.\d+)?\s*(?:dollars?|bucks)/gi, "")
+    .replace(
+      /\b(should i|can i|do you think|i should|buy|cop|cope|purchase|afford|grab|get|spend|worth it|a|an|the|these|this|those|for|on|pair of|of|some|now|right)\b/gi,
+      ""
+    )
+    .replace(/[?.!,]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!item) item = "this";
+  return { item, price };
+}
+
 export function VoiceAgent({ persona, onConversationReady }: Props) {
   const { appendTurn } = useTurns();
   const [error, setError] = useState<string | null>(null);
+  const personaRef = useRef(persona);
+  personaRef.current = persona;
+  const greetedRef = useRef(false);
+
+  // A persona switch starts a fresh chat → allow the greeting once more.
+  useEffect(() => {
+    greetedRef.current = false;
+  }, [persona]);
 
   const conversation = useConversation({
     onMessage: (m) => {
-      const t =
-        m.source === "user"
-          ? { kind: "user-voice" as const, text: m.message, at: Date.now() }
-          : { kind: "agent-voice" as const, text: m.message, at: Date.now() };
-      appendTurn(t);
+      if (m.source === "user") {
+        appendTurn({ kind: "user-voice", text: m.message, at: Date.now() });
+        const parsed = parsePurchase(m.message);
+        if (parsed) {
+          getVerdict(personaRef.current, parsed.item, parsed.price)
+            .then((v) => appendTurn({ kind: "agent-voice", text: "", verdict: v, at: Date.now() }))
+            .catch(() => {});
+        }
+      } else {
+        appendTurn({ kind: "agent-voice", text: m.message, at: Date.now() });
+      }
     },
     onAgentToolRequest: (req: { tool_name: string }) =>
       appendTurn({ kind: "tool-call", name: req.tool_name, ms: 0, at: Date.now() }),
@@ -41,15 +78,24 @@ export function VoiceAgent({ persona, onConversationReady }: Props) {
       const body = (await res.json()) as { signedUrl?: string; error?: string };
       if (!res.ok || !body.signedUrl) throw new Error(body.error || `HTTP ${res.status}`);
 
-      // Inject the selected persona's real financial data so the voice is grounded.
-      let overrides;
+      // Ground the voice in the selected persona's real data.
+      let overrides:
+        | { agent: { prompt?: { prompt: string }; firstMessage?: string } }
+        | undefined;
       try {
         const profile = await getProfile(persona);
         overrides = { agent: { prompt: { prompt: voiceSystemPrompt(profile) } } };
       } catch {
-        // engine unreachable — connect anyway (ungrounded)
+        // engine unreachable — connect ungrounded
       }
-      conversation.startSession({ signedUrl: body.signedUrl, overrides });
+      // Only greet once per chat — skip "hey, what are you buying?" on reconnect.
+      if (greetedRef.current) {
+        overrides = overrides ?? { agent: {} };
+        overrides.agent.firstMessage = "";
+      }
+
+      await conversation.startSession({ signedUrl: body.signedUrl, overrides });
+      greetedRef.current = true;
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
     }
