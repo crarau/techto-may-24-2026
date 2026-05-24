@@ -12,8 +12,43 @@ const STYLES: Record<
   DROP: { bg: "bg-drop", ring: "ring-drop/30", label: "drop", blurb: "not this one" },
 };
 
-export function VerdictCard({ v }: { v: Verdict }) {
+export function VerdictCard({ v, compact }: { v: Verdict; compact?: boolean }) {
   const s = STYLES[v.decision];
+
+  if (compact) {
+    return (
+      <div className="rounded-2xl overflow-hidden border border-line">
+        <div className={`${s.bg} px-4 py-3 text-white flex items-center gap-3`}>
+          <span className="font-display text-2xl font-extrabold leading-none lowercase">{s.label}</span>
+          <span className="text-white/80 text-sm lowercase">{s.blurb}</span>
+          <span className="ml-auto text-[11px] text-white/60 lowercase">
+            {v.item} · ${v.price.toLocaleString("en-CA")}
+          </span>
+        </div>
+        <div className="px-4 py-3 bg-paper space-y-1.5">
+          <ul className="space-y-1">
+            {v.reasons.map((r, i) => (
+              <li key={i} className="flex gap-2 text-sm leading-snug text-ink">
+                <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-tangerine" />
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+          {v.freed_up.length > 0 && (
+            <div className="rounded-xl bg-tangerine-soft/50 px-3 py-2 text-xs text-ink/80">
+              {v.freed_up.map((f, i) => (
+                <span key={i} className="lowercase">
+                  {f.action} = +${f.annual.toFixed(0)}/yr
+                  {i < v.freed_up.length - 1 ? " · " : ""}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="pop rounded-[28px] bg-paper border border-line shadow-[0_30px_60px_-25px_rgba(217,78,0,0.35)] overflow-hidden">
       <div className={`${s.bg} px-7 pt-6 pb-7 text-white relative`}>

@@ -1,50 +1,58 @@
 "use client";
 
-import { ConversationProvider } from "@elevenlabs/react";
-import { useCallback, useEffect, useState } from "react";
+import { ConversationProvider, useConversation } from "@elevenlabs/react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { VoiceAgent } from "./VoiceAgent";
-import { AskBox } from "./components/AskBox";
-import { VerdictCard } from "./components/VerdictCard";
 import { ProfilePanel } from "./components/ProfilePanel";
-import { getPersonas, getProfile, getVerdict, type Profile, type Verdict } from "./lib/engine";
+import { Chat } from "./components/Chat";
+import { TurnsProvider, useTurns } from "./contexts/TurnsContext";
+import { getPersonas, getProfile, type Profile } from "./lib/engine";
 
-export default function Home() {
+function HomeInner() {
   const [personas, setPersonas] = useState<string[]>(["maya"]);
   const [persona, setPersona] = useState("maya");
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [verdict, setVerdict] = useState<Verdict | null>(null);
-  const [loading, setLoading] = useState(false);
   const [down, setDown] = useState(false);
+  const { clear } = useTurns();
+
+  const [voiceConnected, setVoiceConnected] = useState(false);
+  const [voiceSpeaking, setVoiceSpeaking] = useState(false);
+  const conversationRef = useRef<ReturnType<typeof useConversation> | null>(null);
 
   useEffect(() => {
     getPersonas().then(setPersonas).catch(() => setDown(true));
   }, []);
 
   useEffect(() => {
-    setVerdict(null);
     getProfile(persona)
       .then((p) => {
         setProfile(p);
         setDown(false);
-        if (p.demo_query?.item && p.demo_query?.price) {
-          getVerdict(persona, p.demo_query.item, p.demo_query.price)
-            .then(setVerdict)
-            .catch(() => {});
-        }
       })
       .catch(() => setDown(true));
   }, [persona]);
 
-  const ask = useCallback(
-    (item: string, price: number) => {
-      setLoading(true);
-      getVerdict(persona, item, price)
-        .then(setVerdict)
-        .catch(() => setDown(true))
-        .finally(() => setLoading(false));
-    },
-    [persona]
-  );
+  const handlePersonaSwitch = useCallback((p: string) => {
+    setPersona(p);
+    clear();
+  }, [clear]);
+
+  const handleConversationReady = useCallback((conv: ReturnType<typeof useConversation>) => {
+    conversationRef.current = conv;
+    setVoiceConnected(conv.status === "connected");
+    setVoiceSpeaking(conv.isSpeaking);
+  }, []);
+
+  // Poll voice state changes since the conversation object doesn't fire events for status
+  useEffect(() => {
+    const id = setInterval(() => {
+      const conv = conversationRef.current;
+      if (!conv) return;
+      setVoiceConnected(conv.status === "connected");
+      setVoiceSpeaking(conv.isSpeaking);
+    }, 300);
+    return () => clearInterval(id);
+  }, []);
 
   const suggestions = [
     ...(profile?.demo_query?.item && profile.demo_query.price
@@ -73,25 +81,33 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 rounded-full bg-paper border border-line p-1">
-          {personas.map((p) => (
-            <button
-              key={p}
-              onClick={() => setPersona(p)}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-medium lowercase transition ${
-                p === persona
-                  ? "bg-tangerine text-white shadow"
-                  : "text-ink-soft hover:text-ink"
-              }`}
-            >
-              {p}
-            </button>
-          ))}
+        <div className="flex items-center gap-3">
+          {/* Voice mic button (hoisted to header) */}
+          <ConversationProvider>
+            <VoiceAgent onConversationReady={handleConversationReady} />
+          </ConversationProvider>
+
+          {/* Persona switcher */}
+          <div className="flex items-center gap-1.5 rounded-full bg-paper border border-line p-1">
+            {personas.map((p) => (
+              <button
+                key={p}
+                onClick={() => handlePersonaSwitch(p)}
+                className={`rounded-full px-3.5 py-1.5 text-sm font-medium lowercase transition ${
+                  p === persona
+                    ? "bg-tangerine text-white shadow"
+                    : "text-ink-soft hover:text-ink"
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
       {down && (
-        <div className="rise rounded-2xl border border-drop/30 bg-drop/5 px-5 py-4 text-drop">
+        <div className="rise rounded-2xl border border-drop/30 bg-drop/5 px-5 py-4 text-drop mb-5">
           can&apos;t reach the engine — start it with{" "}
           <code className="font-mono">python engine/serve.py</code> (port 8000).
         </div>
@@ -111,19 +127,13 @@ export default function Home() {
             </p>
           </div>
 
-          <AskBox onAsk={ask} loading={loading} suggestions={suggestions} />
-
-          {verdict ? (
-            <VerdictCard v={verdict} />
-          ) : (
-            <div className="rounded-[28px] border border-dashed border-line bg-paper/50 px-7 py-12 text-center text-ink-soft">
-              ask about a purchase to get a verdict.
-            </div>
-          )}
-
-          <ConversationProvider>
-            <VoiceAgent />
-          </ConversationProvider>
+          <Chat
+            persona={persona}
+            suggestions={suggestions}
+            conversation={conversationRef.current ?? ({} as ReturnType<typeof useConversation>)}
+            voiceConnected={voiceConnected}
+            voiceSpeaking={voiceSpeaking}
+          />
         </section>
 
         {/* Proof column */}
@@ -138,5 +148,13 @@ export default function Home() {
         </aside>
       </div>
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <TurnsProvider>
+      <HomeInner />
+    </TurnsProvider>
   );
 }

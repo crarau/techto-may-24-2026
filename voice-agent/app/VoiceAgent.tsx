@@ -1,15 +1,35 @@
 "use client";
 
 import { useConversation } from "@elevenlabs/react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useTurns } from "./contexts/TurnsContext";
 
-export function VoiceAgent() {
+type Props = {
+  onConversationReady: (conv: ReturnType<typeof useConversation>) => void;
+};
+
+export function VoiceAgent({ onConversationReady }: Props) {
+  const { appendTurn } = useTurns();
   const [error, setError] = useState<string | null>(null);
 
   const conversation = useConversation({
-    onError: (err) =>
-      setError(typeof err === "string" ? err : JSON.stringify(err)),
+    onMessage: (m) => {
+      const t =
+        m.source === "user"
+          ? { kind: "user-voice" as const, text: m.message, at: Date.now() }
+          : { kind: "agent-voice" as const, text: m.message, at: Date.now() };
+      appendTurn(t);
+    },
+    onAgentToolRequest: (req: { tool_name: string }) =>
+      appendTurn({ kind: "tool-call", name: req.tool_name, ms: 0, at: Date.now() }),
+    onError: (err) => {
+      setError(typeof err === "string" ? err : JSON.stringify(err));
+    },
   });
+
+  useEffect(() => {
+    onConversationReady(conversation);
+  }, [conversation, onConversationReady]);
 
   const start = useCallback(async () => {
     setError(null);
@@ -32,44 +52,37 @@ export function VoiceAgent() {
   const speaking = conversation.isSpeaking;
 
   return (
-    <div className="flex items-center gap-4 rounded-2xl bg-paper border border-line px-5 py-4 shadow-sm">
-      <button
-        onClick={connected ? stop : start}
-        disabled={connecting}
-        className={`relative grid h-14 w-14 shrink-0 place-items-center rounded-full text-white shadow-md transition active:scale-95 disabled:opacity-60 ${
-          connected ? "bg-drop" : "bg-tangerine hover:bg-tangerine-deep"
-        } ${speaking ? "halo" : ""}`}
-        aria-label={connected ? "end voice" : "start voice"}
-      >
-        {connected ? (
-          <span className="h-4 w-4 rounded-[3px] bg-white" />
-        ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path
-              d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"
-              fill="currentColor"
-            />
-            <path
-              d="M19 11a7 7 0 0 1-14 0M12 18v3"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        )}
-      </button>
-      <div className="min-w-0">
-        <p className="font-display font-semibold lowercase">
-          {connected ? (speaking ? "talking…" : "listening…") : "or just ask out loud"}
-        </p>
-        <p className="text-sm text-ink-soft lowercase truncate">
-          {error
-            ? "voice needs the elevenlabs key — text works now"
-            : connecting
-              ? "connecting…"
-              : "tap to talk to your money bestie"}
-        </p>
-      </div>
-    </div>
+    <button
+      onClick={connected ? stop : start}
+      disabled={connecting}
+      title={
+        error
+          ? "voice needs elevenlabs key"
+          : connected
+            ? "end voice"
+            : "start voice"
+      }
+      className={`relative grid h-12 w-12 shrink-0 place-items-center rounded-full text-white shadow-md transition active:scale-95 disabled:opacity-60 ${
+        connected ? "bg-drop" : "bg-tangerine hover:bg-tangerine-deep"
+      } ${speaking ? "halo" : ""}`}
+      aria-label={connected ? "end voice" : "start voice"}
+    >
+      {connected ? (
+        <span className="h-3.5 w-3.5 rounded-[3px] bg-white" />
+      ) : (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Z"
+            fill="currentColor"
+          />
+          <path
+            d="M19 11a7 7 0 0 1-14 0M12 18v3"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      )}
+    </button>
   );
 }
