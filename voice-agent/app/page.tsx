@@ -1,8 +1,7 @@
 "use client";
 
-import { ConversationProvider, useConversation } from "@elevenlabs/react";
+import { useConversation } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { VoiceAgent } from "./VoiceAgent";
 import { ProfilePanel } from "./components/ProfilePanel";
 import { Chat } from "./components/Chat";
 import { TurnsProvider, useTurns } from "./contexts/TurnsContext";
@@ -82,11 +81,6 @@ function HomeInner() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Voice mic button (hoisted to header) */}
-          <ConversationProvider>
-            <VoiceAgent persona={persona} onConversationReady={handleConversationReady} />
-          </ConversationProvider>
-
           {/* Persona switcher */}
           <div className="flex items-center gap-1.5 rounded-full bg-paper border border-line p-1">
             {personas.map((p) => (
@@ -133,6 +127,7 @@ function HomeInner() {
             conversation={conversationRef.current ?? ({} as ReturnType<typeof useConversation>)}
             voiceConnected={voiceConnected}
             voiceSpeaking={voiceSpeaking}
+            onConversationReady={handleConversationReady}
           />
         </section>
 

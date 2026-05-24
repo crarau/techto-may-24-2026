@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useConversation } from "@elevenlabs/react";
+import { ConversationProvider, useConversation } from "@elevenlabs/react";
 import { useTurns } from "../contexts/TurnsContext";
 import { sendInput } from "../lib/sendInput";
 import { ChatBubble } from "./ChatBubble";
+import { VoiceAgent } from "../VoiceAgent";
 
 type Props = {
   persona: string;
@@ -12,16 +13,24 @@ type Props = {
   conversation: ReturnType<typeof useConversation>;
   voiceConnected: boolean;
   voiceSpeaking: boolean;
+  onConversationReady: (conv: ReturnType<typeof useConversation>) => void;
 };
 
-export function Chat({ persona, suggestions, conversation, voiceConnected, voiceSpeaking }: Props) {
+export function Chat({
+  persona,
+  suggestions,
+  conversation,
+  voiceConnected,
+  voiceSpeaking,
+  onConversationReady,
+}: Props) {
   const { turns, appendTurn, replaceLastThinking, updateLastAgentText } = useTurns();
   const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [turns]);
+  }, [turns, voiceSpeaking]);
 
   const messages = turns
     .filter((t): t is Extract<typeof t, { text: string }> =>
@@ -55,58 +64,75 @@ export function Chat({ persona, suggestions, conversation, voiceConnected, voice
   };
 
   const isEmpty = turns.length === 0;
+  const state = voiceSpeaking ? "talking" : voiceConnected ? "listening" : "idle";
+  const STATUS = {
+    talking: { label: "bestie is talking", dot: "bg-tangerine animate-ping" },
+    listening: { label: "listening — say it out loud", dot: "bg-tangerine animate-pulse" },
+    idle: { label: "voice off", dot: "bg-ink-soft/40" },
+  }[state];
 
   return (
-    <div className="flex flex-col rounded-[28px] bg-paper border border-line overflow-hidden shadow-sm" style={{ minHeight: "420px" }}>
+    <div className="flex flex-col rounded-[28px] bg-paper border border-line overflow-hidden shadow-sm" style={{ minHeight: "440px" }}>
+      {/* Header with live status */}
+      <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
+        <div className="flex items-center gap-2">
+          <span className="grid h-7 w-7 place-items-center rounded-full bg-tangerine/15 text-sm">💬</span>
+          <span className="font-display font-bold lowercase">your money bestie</span>
+        </div>
+        <span
+          className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium lowercase ${
+            state === "idle" ? "bg-line/50 text-ink-soft" : "bg-tangerine/10 text-tangerine-deep"
+          }`}
+        >
+          <span className={`h-2 w-2 rounded-full ${STATUS.dot}`} />
+          {STATUS.label}
+        </span>
+      </div>
+
       {/* Thread */}
-      <div className="flex-1 overflow-y-auto px-5 py-5 space-y-4" style={{ maxHeight: "520px" }}>
+      <div className="flex-1 overflow-y-auto px-5 py-5 space-y-4" style={{ maxHeight: "500px" }}>
         {isEmpty && (
-          <div className="flex flex-col items-center justify-center h-40 gap-2 text-ink-soft/60 text-sm lowercase">
-            <span className="text-2xl">💬</span>
-            <span>ask about a purchase below</span>
+          <div className="flex flex-col items-center justify-center h-44 gap-2 text-center text-ink-soft/70 text-sm lowercase">
+            <span className="text-3xl">🍊</span>
+            <span>tap the mic to talk, or type below</span>
+            <span className="text-ink-soft/50">i&apos;ll answer from your real numbers</span>
           </div>
         )}
         {turns.map((t, i) => (
           <ChatBubble key={i} turn={t} />
         ))}
         {voiceSpeaking && (
-          <div className="flex items-center gap-2 text-sm text-tangerine lowercase animate-pulse">
-            <span className="h-2 w-2 rounded-full bg-tangerine" />
-            bestie is talking…
+          <div className="flex items-center gap-1.5 text-sm text-tangerine-deep lowercase">
+            <span className="flex gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "0ms" }} />
+              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "120ms" }} />
+              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "240ms" }} />
+            </span>
+            bestie is talking
           </div>
         )}
         <div ref={bottomRef} />
       </div>
 
-      {/* Input bar */}
+      {/* Input bar — mic lives here now */}
       <div className="border-t border-line px-4 py-3 space-y-2">
-        <div className="flex items-center gap-2">
-          {/* Mic status pill */}
-          <div
-            className={`shrink-0 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium lowercase transition ${
-              voiceConnected
-                ? "bg-tangerine/10 text-tangerine-deep"
-                : "bg-line/60 text-ink-soft"
-            }`}
-          >
-            <span
-              className={`h-2 w-2 rounded-full ${voiceConnected ? "bg-tangerine animate-pulse" : "bg-ink-soft/40"}`}
-            />
-            {voiceConnected ? "voice on" : "voice off"}
-          </div>
+        <div className="flex items-center gap-2.5">
+          <ConversationProvider>
+            <VoiceAgent persona={persona} onConversationReady={onConversationReady} />
+          </ConversationProvider>
 
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKey}
-            placeholder="type a question…"
-            className="flex-1 bg-transparent text-[15px] outline-none placeholder:text-ink-soft/50 lowercase"
+            placeholder={voiceConnected ? "talking… or type here" : "type a question…"}
+            className="flex-1 bg-cream/60 rounded-2xl px-4 py-3 text-[15px] outline-none placeholder:text-ink-soft/50 lowercase focus:bg-cream transition"
           />
 
           <button
             onClick={() => submit(input)}
             disabled={!input.trim()}
-            className="rounded-xl bg-tangerine px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-tangerine-deep active:scale-95 disabled:opacity-40 lowercase"
+            className="rounded-2xl bg-tangerine px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-tangerine-deep active:scale-95 disabled:opacity-40 lowercase"
           >
             send
           </button>
