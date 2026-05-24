@@ -1,0 +1,71 @@
+{
+  "family_id": "fam_chen",
+  "family_name": "The Chen Family",
+  "as_of": "2026-05-24",
+
+  "members": [
+    { "member_id": "m1", "name": "Sarah Chen", "role": "guardian", "age": 42 },
+    { "member_id": "m2", "name": "Mike Chen",  "role": "partner",  "age": 44 },
+    { "member_id": "m3", "name": "Ben Chen",   "role": "teen",     "age": 15 },
+    { "member_id": "m4", "name": "Lily Chen",  "role": "kid",      "age": 10 }
+  ],
+
+  "accounts": [
+    { "account_id": "a1", "product": "No-Fee Chequing",         "owner": "joint", "balance":   6420.55 },
+    { "account_id": "a2", "product": "Savings Account",         "owner": "joint", "balance":  18230.00 },
+    { "account_id": "a3", "product": "TFSA Savings",            "owner": "m1",    "balance":  41200.00 },
+    { "account_id": "a4", "product": "World Elite Mastercard",  "owner": "m1",    "balance":  -1840.20 },
+    { "account_id": "a5", "product": "Mutual Fund (Balanced)",  "owner": "m1",    "balance":  22100.00 },
+    { "account_id": "a6", "product": "Children's Savings",      "owner": "m3",    "balance":    312.00 },
+    { "account_id": "a7", "product": "Children's Savings",      "owner": "m4",    "balance":    145.00 }
+  ],
+
+  "transactions": [
+    { "txn_id": "t1", "account_id": "a1", "member_id": "m1", "date": "2026-05-20", "amount":  -127.45, "merchant": "Loblaws",       "category": "groceries",     "location": "Toronto" },
+    { "txn_id": "t2", "account_id": "a4", "member_id": "m1", "date": "2026-05-18", "amount":   -54.30, "merchant": "Indigo",        "category": "books",         "location": "Toronto" },
+    { "txn_id": "t3", "account_id": "a1", "member_id": "m1", "date": "2026-05-15", "amount":  3120.00, "merchant": "Employer Inc.", "category": "income",        "location": null      },
+    { "txn_id": "t4", "account_id": "a6", "member_id": "m3", "date": "2026-05-14", "amount":   -19.99, "merchant": "Steam",         "category": "gaming",        "location": null      },
+    { "txn_id": "t5", "account_id": "a1", "member_id": "m2", "date": "2026-05-12", "amount":   -88.10, "merchant": "Metro",         "category": "groceries",     "location": "Toronto" },
+    { "txn_id": "t6", "account_id": "a4", "member_id": "m1", "date": "2026-03-14", "amount":  -312.50, "merchant": "TAP Air",       "category": "travel",        "location": "Lisbon"  },
+    { "txn_id": "t7", "account_id": "a4", "member_id": "m1", "date": "2026-03-16", "amount":   -64.20, "merchant": "Time Out Mkt",  "category": "dining",        "location": "Lisbon"  }
+  ],
+
+  "recurring": [
+    { "merchant": "Mortgage Payment",  "amount": -2150.00, "cadence": "monthly", "account_id": "a1" },
+    { "merchant": "Netflix",           "amount":   -22.99, "cadence": "monthly", "account_id": "a4" },
+    { "merchant": "Spotify Family",    "amount":   -16.99, "cadence": "monthly", "account_id": "a4" },
+    { "merchant": "GoodLife Fitness",  "amount":   -45.00, "cadence": "monthly", "account_id": "a4", "flag": "unused_8_weeks" },
+    { "merchant": "Hydro One",         "amount":  -140.00, "cadence": "monthly", "account_id": "a1" }
+  ],
+
+  "goals": [
+    { "goal_id": "g1", "scope": "family", "label": "Lisbon trip August",  "target":  6000, "current": 4200, "deadline": "2026-08-01" },
+    { "goal_id": "g2", "scope": "m1",     "label": "Max TFSA 2026",       "target":  7000, "current": 4500, "deadline": "2026-12-31" },
+    { "goal_id": "g3", "scope": "family", "label": "Home reno fund",      "target": 25000, "current": 9800, "deadline": "2027-06-01" }
+  ],
+
+  "obligations": [
+    { "type": "mortgage", "monthly_payment": 2150.00, "remaining_balance": 412000.00, "rate_pct": 4.79 }
+  ],
+
+  "purchase_history": [
+    { "item": "Patio set",         "price": 480.00, "date": "2025-07-12", "used": "yes",     "owner": "m1" },
+    { "item": "Treadmill",         "price": 950.00, "date": "2025-01-04", "used": "no",      "owner": "m1" },
+    { "item": "Kids art supplies", "price":  85.00, "date": "2026-03-20", "used": "partial", "owner": "m4" },
+    { "item": "Bike",              "price": 620.00, "date": "2024-05-01", "used": "yes",     "owner": "m3" }
+  ],
+
+  "demo_targets": {
+    "should_we_buy_query": {
+      "item": "Bugaboo stroller",
+      "price": 300.00,
+      "asked_by": "m1"
+    },
+    "proactive_anomaly": {
+      "type": "unused_subscription",
+      "merchant": "GoodLife Fitness",
+      "weeks_unused": 8,
+      "annualized_save": 540.00
+    }
+  }
+}
