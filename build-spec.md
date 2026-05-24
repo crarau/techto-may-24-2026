@@ -54,14 +54,20 @@ Pure functions over a persona JSON — the **tools** the agent calls. Reliabilit
 monthly_income(f)            discretionary_monthly(f)   liquid_balance(f)
 fixed_monthly(f)             monthly_save_rate(f)        subscription_waste(f)
 find_similar_purchases(f,$)  project_goal_impact(f,$)    matching_goal(f,item)
+classify_item(f,item)        category_pace(f,category)
 verdict(f, item, price) -> {
-    decision: COP|DROP|WAIT, affordable_now, reasons[], freed_up[],
-    goal_impact, aspiration_equiv, context{...}
+    decision: COP|WAIT|SKIP|DROP, affordable_now, reasons[], freed_up[],
+    goal_impact, aspiration_equiv, category, category_pace, context{...}
 }
 ```
-`verdict()` is a rule tree (planned-goal path vs impulse path). The LLM never decides — it
-only narrates this object. **Next:** validate against all of Maya's 10 `sample_questions`,
-then add a thin query-router so free-text maps to the right tool.
+`verdict()` is a rule tree: planned-goal path vs impulse path. The impulse path is
+**magnitude- AND habit-aware** — `classify_item` tags the item's category + need/want;
+`category_pace` measures both windows at once (chronic monthly rate + acute 7-day spike).
+Verdicts: **COP** (fine), **WAIT** (soon / saving toward it), **SKIP** (affordable but a
+leak/spike — *"shopping is $2,939/yr, your emergency fund 1.5x over"*), **DROP** (can't
+afford). Needs (groceries, transit, rent…) are never shamed. The LLM never decides — it
+only narrates this object. **Next:** validate against Maya's 10 `sample_questions`, then a
+thin query-router so free-text maps to the right tool.
 
 ---
 
