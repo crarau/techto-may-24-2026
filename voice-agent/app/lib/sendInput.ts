@@ -38,7 +38,27 @@ export function sendInput(text: string, ctx: Ctx): void {
   // EventSource only supports GET; use fetch with streaming instead
   eventSource.close();
 
-  let accumulated = "";
+  // Typewriter drain: buffer incoming tokens, release a few chars per animation frame
+  let pending = "";
+  let displayed = "";
+  let rafId: ReturnType<typeof requestAnimationFrame> | null = null;
+  let finalVerdict: Verdict | undefined;
+  let streamDone = false;
+
+  function drain() {
+    if (pending.length > 0) {
+      const chunk = pending.slice(0, 4);
+      pending = pending.slice(4);
+      displayed += chunk;
+      updateLastAgentText(displayed);
+    }
+    if (pending.length > 0 || !streamDone) {
+      rafId = requestAnimationFrame(drain);
+    } else {
+      rafId = null;
+      updateLastAgentText(displayed, finalVerdict);
+    }
+  }
 
   fetch("/api/chat", {
     method: "POST",
@@ -57,7 +77,6 @@ export function sendInput(text: string, ctx: Ctx): void {
     const reader = res.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "";
-    let verdict: Verdict | undefined;
 
     while (true) {
       const { done, value } = await reader.read();
@@ -77,14 +96,12 @@ export function sendInput(text: string, ctx: Ctx): void {
         }
 
         if (eventType === "delta") {
-          accumulated += data;
-          updateLastAgentText(accumulated);
+          pending += data;
+          if (rafId === null) rafId = requestAnimationFrame(drain);
         } else if (eventType === "verdict") {
-          try {
-            verdict = JSON.parse(data) as Verdict;
-          } catch {}
+          try { finalVerdict = JSON.parse(data) as Verdict; } catch {}
         } else if (eventType === "done") {
-          updateLastAgentText(accumulated, verdict);
+          streamDone = true;
         }
       }
     }
