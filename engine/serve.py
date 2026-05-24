@@ -12,6 +12,7 @@ Pure stdlib (http.server) — no Flask, no pip install. Wraps engine.py.
 """
 
 import html
+import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib.parse import urlparse, parse_qs
 
@@ -133,6 +134,44 @@ def category_breakdown(fam: dict) -> list[tuple[str, float]]:
                   key=lambda x: -x[1])
 
 
+def profile_json(fam: dict) -> dict:
+    """Structured profile for the JSON API (consumed by the Next.js front-end)."""
+    return {
+        "family_id": fam["family_id"],
+        "family_name": fam["family_name"],
+        "archetype": fam.get("archetype", ""),
+        "as_of": fam["as_of"],
+        "members": [{"name": m["name"], "age": m["age"]} for m in fam["members"]],
+        "stats": {
+            "monthly_income": engine.monthly_income(fam),
+            "fixed_monthly": engine.fixed_monthly(fam),
+            "discretionary_monthly": engine.discretionary_monthly(fam),
+            "net_monthly": round(engine.monthly_income(fam) - engine.fixed_monthly(fam)
+                                 - engine.discretionary_monthly(fam), 2),
+            "liquid_balance": engine.liquid_balance(fam),
+            "monthly_save_rate": engine.monthly_save_rate(fam),
+        },
+        "accounts": [{"product": a["product"], "balance": a["balance"]} for a in fam["accounts"]],
+        "subscriptions": [
+            {"merchant": r["merchant"], "monthly": round(abs(r["amount"]), 2),
+             "flag": r.get("flag", "")}
+            for r in fam.get("recurring", [])
+        ],
+        "goals": [
+            {"label": g["label"], "current": g["current"], "target": g["target"],
+             "pct": min(100, round(g["current"] / g["target"] * 100)) if g["target"] else 0}
+            for g in fam.get("goals", [])
+        ],
+        "categories": [{"category": c, "monthly": v} for c, v in category_breakdown(fam)],
+        "purchases": [
+            {"item": p["item"], "price": p["price"], "used": p["used"]}
+            for p in fam.get("purchase_history", [])
+        ],
+        "sample_questions": [q["q"] for q in fam.get("sample_questions", [])],
+        "demo_query": fam.get("demo_targets", {}).get("should_we_buy_query", {}),
+    }
+
+
 def render_profile(fam: dict) -> bytes:
     members = ", ".join(f"{m['name']} ({m['age']})" for m in fam["members"])
     income = engine.monthly_income(fam)
@@ -204,6 +243,25 @@ def render_profile(fam: dict) -> bytes:
 # ---------- server ----------
 
 class Handler(BaseHTTPRequestHandler):
+    def _cors(self):
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "*")
+
+    def _send_json(self, obj, status=200):
+        body = json.dumps(obj).encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self._cors()
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        self.send_response(204)
+        self._cors()
+        self.end_headers()
+
     def do_GET(self):
         parsed = urlparse(self.path)
         q = parse_qs(parsed.query)
@@ -212,6 +270,22 @@ class Handler(BaseHTTPRequestHandler):
             fam = engine.load_family(persona)
         except (FileNotFoundError, OSError):
             persona, fam = "maya", engine.load_family("maya")
+
+        # ---- JSON API (consumed by the Next.js front-end) ----
+        if parsed.path.startswith("/tools/"):
+            tool = parsed.path[len("/tools/"):]
+            if tool == "personas":
+                return self._send_json({"personas": personas()})
+            if tool == "profile":
+                return self._send_json(profile_json(fam))
+            if tool == "verdict":
+                item = q.get("item", [""])[0] or "this"
+                try:
+                    price = float(q.get("price", ["0"])[0])
+                except ValueError:
+                    return self._send_json({"error": "price must be numeric"}, 400)
+                return self._send_json(engine.verdict(fam, item, price))
+            return self._send_json({"error": f"unknown tool '{tool}'"}, 404)
 
         if parsed.path == "/profile":
             body = render_profile(fam)
