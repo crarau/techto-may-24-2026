@@ -26,11 +26,13 @@ export function Chat({
 }: Props) {
   const { turns, appendTurn, replaceLastThinking, updateLastAgentText } = useTurns();
   const [input, setInput] = useState("");
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const threadRef = useRef<HTMLDivElement>(null);
 
+  // Scroll only the chat thread, never the page (avoids the whole screen jumping).
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [turns, voiceSpeaking]);
+    const el = threadRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [turns, voiceConnected, voiceSpeaking]);
 
   const messages = turns
     .filter((t): t is Extract<typeof t, { text: string }> =>
@@ -90,7 +92,7 @@ export function Chat({
       </div>
 
       {/* Thread */}
-      <div className="flex-1 overflow-y-auto px-5 py-5 space-y-4" style={{ maxHeight: "500px" }}>
+      <div ref={threadRef} className="flex-1 overflow-y-auto px-5 py-5 space-y-4" style={{ maxHeight: "500px" }}>
         {isEmpty && (
           <div className="flex flex-col items-center justify-center h-44 gap-2 text-center text-ink-soft/70 text-sm lowercase">
             <span className="text-3xl">🍊</span>
@@ -101,17 +103,33 @@ export function Chat({
         {turns.map((t, i) => (
           <ChatBubble key={i} turn={t} />
         ))}
-        {voiceSpeaking && (
-          <div className="flex items-center gap-1.5 text-sm text-tangerine-deep lowercase">
-            <span className="flex gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "0ms" }} />
-              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "120ms" }} />
-              <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "240ms" }} />
-            </span>
-            bestie is talking
+        {voiceConnected && (
+          <div className="flex gap-2.5 items-start">
+            <div className="shrink-0 h-8 w-8 rounded-full bg-tangerine grid place-items-center shadow-sm">
+              <span className="h-2.5 w-2.5 rounded-full bg-white/95" />
+            </div>
+            <div className="rounded-2xl rounded-tl-sm bg-paper border border-line px-4 py-3 text-sm text-ink-soft lowercase flex items-center gap-2">
+              {voiceSpeaking ? (
+                <>
+                  <span className="flex gap-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "120ms" }} />
+                    <span className="h-1.5 w-1.5 rounded-full bg-tangerine animate-bounce" style={{ animationDelay: "240ms" }} />
+                  </span>
+                  talking…
+                </>
+              ) : (
+                <>
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="absolute inline-flex h-full w-full rounded-full bg-tangerine/60 animate-ping" />
+                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-tangerine" />
+                  </span>
+                  listening…
+                </>
+              )}
+            </div>
           </div>
         )}
-        <div ref={bottomRef} />
       </div>
 
       {/* Input bar — mic lives here now */}
