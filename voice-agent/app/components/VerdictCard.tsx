@@ -6,10 +6,10 @@ const STYLES: Record<
   Decision,
   { bg: string; ring: string; label: string; blurb: string }
 > = {
-  COP: { bg: "bg-cop", ring: "ring-cop/30", label: "cop it", blurb: "go for it" },
-  WAIT: { bg: "bg-wait", ring: "ring-wait/30", label: "wait", blurb: "almost — not yet" },
-  SKIP: { bg: "bg-skip", ring: "ring-skip/30", label: "skip", blurb: "you can, but don't" },
-  DROP: { bg: "bg-drop", ring: "ring-drop/30", label: "drop", blurb: "not this one" },
+  COP: { bg: "bg-cop", ring: "ring-cop/30", label: "cop it", blurb: "you can cop" },
+  WAIT: { bg: "bg-wait", ring: "ring-wait/30", label: "wait", blurb: "cop it, but later" },
+  SKIP: { bg: "bg-drop", ring: "ring-drop/30", label: "skip", blurb: "don't — it adds up" },
+  DROP: { bg: "bg-drop", ring: "ring-drop/30", label: "drop", blurb: "don't cop it" },
 };
 
 export function VerdictCard({ v, compact }: { v: Verdict; compact?: boolean }) {
