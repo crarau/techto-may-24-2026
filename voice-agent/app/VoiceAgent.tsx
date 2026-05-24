@@ -3,7 +3,7 @@
 import { useConversation } from "@elevenlabs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTurns } from "./contexts/TurnsContext";
-import { getProfile, getVerdict, voiceSystemPrompt } from "./lib/engine";
+import { getVerdict } from "./lib/engine";
 
 type Props = {
   persona: string;
@@ -110,23 +110,10 @@ export function VoiceAgent({ persona, onConversationReady }: Props) {
       const body = (await res.json()) as { signedUrl?: string; error?: string };
       if (!res.ok || !body.signedUrl) throw new Error(body.error || `HTTP ${res.status}`);
 
-      // Ground the voice in the selected persona's real data.
-      let overrides:
-        | { agent: { prompt?: { prompt: string }; firstMessage?: string } }
-        | undefined;
-      try {
-        const profile = await getProfile(persona);
-        overrides = { agent: { prompt: { prompt: voiceSystemPrompt(profile) } } };
-      } catch {
-        // engine unreachable — connect ungrounded
-      }
-      // Only greet once per chat — skip "hey, what are you buying?" on reconnect.
-      if (greetedRef.current) {
-        overrides = overrides ?? { agent: {} };
-        overrides.agent.firstMessage = "";
-      }
-
-      await conversation.startSession({ signedUrl: body.signedUrl, overrides });
+      // DIAGNOSTIC: overrides temporarily disabled to isolate the
+      // "Client disconnected: 1000" failure. Restore once we confirm whether
+      // overrides are the cause.
+      await conversation.startSession({ signedUrl: body.signedUrl });
       greetedRef.current = true;
     } catch (e) {
       setError(e instanceof Error ? e.message : String(e));
