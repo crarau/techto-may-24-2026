@@ -13,7 +13,7 @@ Pure stdlib (http.server) — no Flask, no pip install. Wraps engine.py.
 
 import html
 import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse, parse_qs
 
 import engine  # engine/engine.py (same dir is on sys.path when run as a script)
@@ -317,4 +317,4 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     print(f"Engine tester running -> http://localhost:{PORT}  (Ctrl+C to stop)")
-    HTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
+    ThreadingHTTPServer(("127.0.0.1", PORT), Handler).serve_forever()
