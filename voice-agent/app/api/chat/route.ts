@@ -101,26 +101,27 @@ export async function POST(req: Request) {
 
         let continueLoop = true;
         while (continueLoop) {
-          const resp = await client.messages.create({
+          const msgStream = client.messages.stream({
             model: "claude-sonnet-4-6",
             max_tokens: 1024,
             system: systemPrompt,
             tools,
             messages: sdkMessages,
-            stream: false,
           });
 
-          const toolUseBlocks = resp.content.filter((b) => b.type === "tool_use");
-          const textBlocks = resp.content.filter((b) => b.type === "text");
+          // Stream each text token live as it arrives
+          msgStream.on("text", (token) => send("delta", token));
 
-          if (toolUseBlocks.length > 0) {
-            sdkMessages.push({ role: "assistant", content: resp.content });
+          const finalMsg = await msgStream.finalMessage();
+          sdkMessages.push({ role: "assistant", content: finalMsg.content });
 
+          const toolUseBlocks = finalMsg.content.filter((b) => b.type === "tool_use");
+
+          if (finalMsg.stop_reason === "tool_use" && toolUseBlocks.length > 0) {
             const toolResults: Anthropic.ToolResultBlockParam[] = [];
 
             for (const block of toolUseBlocks) {
               if (block.type !== "tool_use") continue;
-              send("tool", JSON.stringify({ name: block.name }));
 
               let result: unknown;
               try {
@@ -148,15 +149,6 @@ export async function POST(req: Request) {
 
             sdkMessages.push({ role: "user", content: toolResults });
           } else {
-            for (const block of textBlocks) {
-              if (block.type === "text") {
-                send("delta", block.text);
-              }
-            }
-            continueLoop = false;
-          }
-
-          if (resp.stop_reason === "end_turn" && toolUseBlocks.length === 0) {
             continueLoop = false;
           }
         }

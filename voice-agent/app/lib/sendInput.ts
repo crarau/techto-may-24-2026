@@ -79,11 +79,6 @@ export function sendInput(text: string, ctx: Ctx): void {
         if (eventType === "delta") {
           accumulated += data;
           updateLastAgentText(accumulated);
-        } else if (eventType === "tool") {
-          try {
-            const parsed = JSON.parse(data) as { name: string };
-            appendTurn({ kind: "tool-call", name: parsed.name, ms: 0, at: Date.now() });
-          } catch {}
         } else if (eventType === "verdict") {
           try {
             verdict = JSON.parse(data) as Verdict;
