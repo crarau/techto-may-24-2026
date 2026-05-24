@@ -14,10 +14,15 @@
 ```
 TIME    BEAT                            ACTION ON SCREEN / SCRIPT
 ─────────────────────────────────────────────────────────────────────
-0:00    Title card                      "should i cop this?" logo.
-        (3 sec)                         Maya's persona orb pulses.
+0:00    TEAM SLIDE (REQUIRED FIRST)     Static slide with team name
+        (5 sec)                         and all four members + emails:
+                                          Chip Rarau    chip@ideaplaces.com
+                                          Luca ...      ...@...
+                                          Pablo ...     ...@...
+                                          Abdul ...     ...@...
+                                        Track 2 · "should i cop this?"
 
-0:03    Set up the problem              Cut to the app, Maya's profile
+0:05    Set up the problem              Cut to the app, Maya's profile
         (25 sec)                        panel visible.
 
                                         Voiceover (or on screen text):
@@ -30,7 +35,7 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         fifty in checking, sure, buy
                                         them.' That answer is wrong."
 
-0:28    LIVE VOICE QUERY                Chip taps the mic.
+0:30    LIVE VOICE QUERY                Chip taps the mic.
         (40 sec)                        Says aloud:
                                         "should i cop these airpods
                                         two fifty?"
@@ -50,7 +55,7 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         WAIT + 3 grounded reasons +
                                         "free up cash" panel.
 
-1:08    The architecture beat           Quick cut. Terminal showing
+1:10    The architecture beat           Quick cut. Terminal showing
         (25 sec)                        the engine JSON. Then the
                                         ngrok inspector at
                                         localhost:4040 showing the
@@ -65,7 +70,7 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         invents a figure. The 99% is
                                         rule based. The 1% is voice."
 
-1:33    Switch to text chat             Chip types in the chat box:
+1:35    Switch to text chat             Chip types in the chat box:
         (35 sec)                        "what subscriptions am i
                                         wasting on?"
 
@@ -85,7 +90,7 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         "Voice and text. Same brain.
                                         Same data. No invention."
 
-2:08    The Tangerine pitch             On screen text or voiceover:
+2:10    The Tangerine pitch             On screen text or voiceover:
         (30 sec)                        "Tangerine ships personalized
                                         AI to every customer. Under 40
                                         segment. Real BNPL exposure.
@@ -97,8 +102,10 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         customer actually wants to
                                         talk to."
 
-2:38    Team + close                    Team slide with names + emails:
-        (22 sec)                        Chip, Luca, Pablo, Abdul.
+2:40    Close                           Brief brand callback. Logo +
+        (20 sec)                        product line: "should i cop
+                                        this? family financial
+                                        confidence, your voice."
 
                                         Voiceover:
                                         "Built today. Live demo ready.
