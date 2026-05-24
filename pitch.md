@@ -62,13 +62,16 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                         get_verdict tool call fire
                                         live.
 
-                                        Voiceover:
-                                        "Every number you just heard
-                                        came from a deterministic
-                                        Python engine doing the math.
-                                        Claude narrates. It never
-                                        invents a figure. The 99% is
-                                        rule based. The 1% is voice."
+                                        Voiceover (this answers the
+                                        Notion judging tip directly):
+
+                                        "Take the LLM out and you get
+                                        JSON nobody talks to. Take the
+                                        engine out and you get a
+                                        chatbot that invents your
+                                        balance. The product is both,
+                                        bridged. Claude narrates. The
+                                        engine never lies."
 
 1:35    Switch to text chat             Chip types in the chat box:
         (35 sec)                        "what subscriptions am i
@@ -115,15 +118,16 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
 3:00    END
 ```
 
-## Five talking points to memorize
+## Six talking points to memorize
 
-These are the lines that land. Drop one or two if voice runs long.
+Cover the three judging dimensions: real-world problem (10pt), creativity/delight (10pt), thoughtful AI agents (10pt). Drop one if voice runs long.
 
-1. *"The 99% is deterministic Python. The 1% is voice."* The Track 2 differentiator. Engineer judges will reward this.
-2. *"It never invents a figure."* Every number on screen came from the engine. Hold up the receipt in the architecture beat.
-3. *"Three BNPL plans, dining up 43% this week, save rate not covering the cushion."* The Maya reveal. The non obvious answer.
+1. *"Take the LLM out, you get JSON nobody talks to. Take the engine out, you get a chatbot that invents your balance."* This is the answer to the Notion AI-removal test. Lead with this in the architecture beat.
+2. *"It never invents a figure."* Every number on screen came from the engine. Hold up the receipt.
+3. *"Three BNPL plans, dining up 43% this week, save rate not covering the cushion."* The Maya reveal. The non obvious answer that proves we understand real consumers.
 4. *"Voice and text. Same brain. Same data."* The architecture story in one line. Sells the technical sophistication without slides.
 5. *"Family financial confidence in the voice your customer actually wants to talk to."* The Tangerine pitch line. Mirrors their language back at them.
+6. *"Built today. Voice powered by ElevenLabs. Math powered by us."* The close. Sponsor namecheck.
 
 ## Tech rundown for the architecture beat
 
@@ -137,13 +141,39 @@ The user speaks. ElevenLabs converts speech to text. Claude Sonnet 4.6 receives 
 2. **The verdict card pop has to be visible while voice narrates.** Camera frames both. If the chat thread is what's showing, the visual beat is weaker.
 3. **Keep the architecture beat under 25 seconds.** Flash the engine JSON, flash the ngrok call, done. Don't lecture.
 
-## Submission requirements
+## Submission requirements (verbatim from Notion)
 
-- 3 minute max video.
-- Title format: `Team <#> - <team name> - Track 2 - should i cop this?`
-- First slide must list all four team member names + emails.
-- Upload to the Google Drive link by 5pm.
-- Be ready for a live demo if shortlisted.
+- **Max 3 minute video.** Hard cap.
+- **Title format**: `<TEAM #> - <TEAM NAME> - <TRACK #> - <IDEA TITLE>`.
+  Notion example: `Team 1 - Team Sunday Funday - Track 1 - Dot - Your Toronto City Explorer`.
+  Ours: `Team <#> - <team name> - Track 2 - should i cop this?` (fill team number from check-in).
+- **First slide must list all team member names + emails.** Non-negotiable, this is in the script at 0:00.
+- **Must include a LIVE DEMO** in the video. Required for the 3-min cut AND again live in finals if shortlisted.
+- **Upload URL**: https://drive.google.com/drive/folders/1qArc1IArZeW-Vsf1TJY6mVL-Su8bQSsc
+- **Deadline**: 5pm.
+- **Recording method**: Loom or any screen recorder. **Download the video and upload to the Drive folder.** Do not just share a Loom link.
+
+## The judges (5)
+
+- Matt Clements, CTO, Tangerine (Track 2 owner)
+- Mo Danish, Head of AI, Tangerine (Track 2 owner)
+- Ehsan Mirdamadi, CEO, Codalio
+- Jonathan Murray, Co-Founder, Backboard
+- Ilya Brotzky, CEO, Vanhack
+
+**Tangerine has 2 of 5 judges.** Mirror their language back: family financial confidence, stress reduction, under-40 segment, BNPL exposure, proactive coaching. Backboard's Jonathan Murray will care about the agent architecture story. The Vanhack and Codalio judges care about magic and delight.
+
+## The judging north star (verbatim)
+
+> "Focus on the ⭐ MAGIC ⭐ that you want the judges to see"
+
+> "Ask yourself: If you take the AI out of your idea, does your idea completely break? If so, THEN THIS IS GOOD!"
+
+Our answer to the AI-removal test, which we should land in the architecture beat:
+
+- **Without the LLM**, the engine just dumps JSON. No narration, no Gen Z bestie, no warmth. The product doesn't exist as a conversation.
+- **Without the engine**, the LLM invents numbers, hallucinates verdicts, can't be trusted with anyone's actual money. Same outcome as every other generic finance chatbot.
+- **Both are required.** The split is the product. That's the magic.
 
 ## Demo machine checklist
 
