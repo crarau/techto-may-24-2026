@@ -55,12 +55,10 @@ Most personal finance tools stop at category pie charts. We treat the financial 
 ## Team Analysis — 4 People, Track 2
 
 ### Team
-- **Pablo** — Finance background. Owns the domain: sample dataset realism, categorization taxonomy, demo narrative, "what families actually care about."
-- **Abdul** — Backend developer. Owns the pipeline: ingestion, SQLite schema, agent backend, query interface.
-- **Luca** — Developer. Owns voice + frontend: Gemini Live integration, minimal UI, demo recording surface.
-- **Chip** — Lead. Owns agent orchestration (tool-calling chain), pitch/video narrative, cross-team glue.
+- **Pablo** — Finance domain (non-developer). Owns dataset realism, categorization taxonomy, demo narrative.
+- **Chip, Luca, Abdul** — coders. Chip and Luca are versatile across marketing, DevOps, agent, voice, and code. Abdul is the backend specialist.
 
-With 4 lanes we can run ingestion, agent reasoning, voice, and pitch in parallel. The math: 7 hours of build time (10am to 5pm), four parallel workstreams instead of two.
+**Lane assignments are deferred until the use case and demo shape are locked.** We have 7 hours of build time (10am to 5pm). Once the spec is firm, we split across the three coders for speed. Pre-assigning now creates rework when the spec shifts.
 
 ### Scope cuts (decided up front)
 - **Cut receipt OCR.** Ingest pre-parsed transaction CSV + a few JSON "receipts" Pablo hand-crafts. OCR is a tarpit in a 7-hour build with one dev.
@@ -215,3 +213,147 @@ Snippets to mirror verbatim in the 3-minute video. These are Tangerine's own wor
 **Implication for Luca's lane**: voice does NOT need full bidirectional Gemini Live integration. A single pre-recorded or mock voice exchange that looks live in the demo video is enough. This cuts Luca's scope by ~60% and frees him to focus on the visual mockup that carries the unified-interface story.
 
 **Implication for the whole team**: lock the positioning and mockup shape first (next ~30 minutes), then code the minimum that proves it. Order of work: positioning → mockup → backend just-enough → voice cosmetic. Not the reverse.
+
+---
+
+## Data Map — Tangerine product universe + family personas
+
+Source: tangerine.ca/en/products (fetched live during planning).
+
+### Tangerine product inventory
+
+**Daily banking**
+- No-Fee Daily Chequing Account (with Visa Debit)
+- US$ Chequing *(skipped for demo)*
+
+**Savings**
+- Savings Account
+- TFSA Savings Account (tax-free growth)
+- RSP Savings Account (retirement, tax-deferred)
+- RIF Savings Account (retirement income distribution)
+- Children's Savings Account (minor accounts)
+- US$ Savings *(skipped)*
+
+**Investments**
+- GICs (locked-in, guaranteed rate)
+- Mutual Funds (managed portfolios)
+- Non-Registered Investments (taxable)
+
+**Borrowing**
+- Mortgage
+- Home Equity Line of Credit *(skipped)*
+- Line of Credit *(skipped)*
+- RSP Loan *(skipped)*
+
+**Credit cards**
+- World Elite Mastercard (premium, 30k Scene+ welcome bonus)
+- Money-Back World Mastercard (cashback)
+- Money-Back Credit Card (entry-level)
+
+**Business** *(excluded from family-finance scope)*
+
+### Build surface (what we actually ingest)
+
+Chequing + Savings (regular, TFSA, RSP, Children's) + Credit Cards + Mutual Funds + Mortgage (as a fixed monthly obligation, no servicing logic). Everything else is excluded for the 7-hour build.
+
+### Personas
+
+We define personas at two levels: individuals and families. Each persona is a holdings mix that determines the data we generate.
+
+#### Persona 1: Maya, 19, Gen Z student
+- **Holdings**: No-Fee Chequing, Savings Account.
+- **Income**: part-time barista + occasional e-transfers from parents.
+- **Expenses**: rent share, food, transit, shared subscriptions (Spotify family, Netflix).
+- **Goals**: $2,000 emergency fund by year-end.
+- **Sample queries**:
+  - "Can I afford these $250 AirPods this month?"
+  - "How much have I actually saved vs my goal?"
+  - "Which subscriptions am I paying that I do not use?"
+
+#### Persona 2: Daniel, 26, Gen Z young professional
+- **Holdings**: Chequing, Savings, TFSA Savings, Money-Back Mastercard, small Mutual Fund.
+- **Income**: salaried (~$70k).
+- **Expenses**: rent, groceries, dining out, transit, subscriptions, gym.
+- **Goals**: max TFSA contribution, save for downpayment.
+- **Sample queries**:
+  - "Should I move my chequing surplus to TFSA this month?"
+  - "Am I on track for the downpayment goal?"
+  - "How much would I save by cancelling dining-out for 60 days?"
+
+#### Persona 3: The Chen family (headline persona)
+The family is the unit. Each member has their own accounts. A guardian view aggregates everything.
+
+**Members:**
+- **Sarah, 42** — guardian. Joint chequing, joint savings, TFSA, RSP, World Elite Mastercard, Mutual Funds, Mortgage (joint).
+- **Mike, 44** — partner. Joint chequing, own chequing, RSP, Money-Back Mastercard.
+- **Ben, 15** — teen. Children's Savings + parental e-transfer allowance.
+- **Lily, 10** — kid. Children's Savings only.
+
+**Family-level data:**
+- Combined monthly income (~$11k after tax).
+- Shared obligations (mortgage, utilities, groceries, kids' activities).
+- Joint goals (Lisbon trip in August, home reno fund, kids' RESP contributions).
+- Cross-member visibility for guardians.
+
+**Sample queries by role:**
+- **Ben (teen)**: "Can I buy an $80 gaming controller this month?" Agent checks Ben's allowance + Children's Savings against the request.
+- **Sarah (guardian)**: "Should we buy a $300 stroller for Lily?" Agent aggregates household budget pace, savings trajectory, similar past purchases.
+- **Sarah (guardian)**: "How much did the kids spend on subscriptions last month?" Cross-member roll-up.
+- **Mike (partner)**: "Are we still on track for the Lisbon trip in August?" Trip-cost projection against goal.
+
+#### Persona 4 (optional, elder voice differentiator): Margaret, 68
+- **Holdings**: RIF, Savings, Chequing.
+- **Income**: pension + RIF withdrawals.
+- **Same query shape**, voice persona deliberately slow per the AI engineer's feedback.
+
+### Family unit data model
+
+```
+family_id
+  members[]:   { member_id, name, role (guardian|partner|teen|kid), age }
+  accounts[]:  { account_id, type, owner (member_id | "joint"), balance,
+                 product_name }
+  transactions[]: { txn_id, account_id, member_id, amount, merchant,
+                    category, location, date }
+  recurring[]: { merchant, amount, cadence, account_id }
+  goals[]:     { goal_id, scope (family | member_id), target, deadline,
+                 current_progress }
+  obligations[]: { type (mortgage|line_of_credit), monthly_payment,
+                   remaining_balance }
+  purchase_history[]: { item, price, date, used (yes|no|partial),
+                        owner_member_id }
+```
+
+**Roles determine query scope:**
+- Guardian reads all members + all joint accounts + all family goals.
+- Partner reads joint + own.
+- Teen reads own only (but guardian can see).
+- Kid reads own (parents view-only on their behalf).
+
+This role-scoped view is the demo's "wow" moment: the same agent answers a teen's "can I buy this?" with one budget context, and a mom's "should we buy this?" with a completely different aggregated context.
+
+### Fake data generation plan
+
+**Owner**: Pablo curates the structure and the 20 to 30 narratively important transactions. Coders write a Python script to expand into 60 to 90 days of realistic volume.
+
+**Anchor points for realism**:
+1. Bi-weekly paychecks for Sarah and Mike.
+2. Monthly mortgage payment, fixed.
+3. Recurring subscriptions (Netflix, Spotify family, gym, kids' app store charges).
+4. Weekly grocery pattern at real Toronto chains (Loblaws, Metro, Sobeys, No Frills).
+5. Location-tagged Lisbon trip (March, 14 days, multi-merchant spend across food/transport/lodging).
+6. One embedded anomaly for the proactive flag demo (Sarah's gym sub unused for 8 weeks).
+7. One reserved "should we buy this?" target event for the live demo moment.
+
+**Tooling**:
+- Python + Faker for volume.
+- Pablo's hand-curated overlay (CSV) merged in for narratively important rows.
+- SQLite as the store.
+
+### Decisions still open
+
+1. Lock the family scenario. Is Chen the right archetype? Or a different cultural / income profile?
+2. Single-user demo (Maya or Daniel) in addition to the family, or family only?
+3. Lock the demo question(s) that drive the 3-minute video.
+4. Voice persona: family advisor (default) or elder voice (differentiator)?
+5. Do we include Margaret as a secondary demo or skip her entirely?
