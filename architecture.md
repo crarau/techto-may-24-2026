@@ -131,7 +131,7 @@ Mapped one-to-one onto the engine. Each tool description tells Claude what it do
 - `npm install @anthropic-ai/claude-agent-sdk` in `voice-agent/` (read `voice-agent/AGENTS.md` first — it warns Next.js 16 has breaking changes, consult `node_modules/next/dist/docs/` before writing routes).
 - `app/api/llm/chat/completions/route.ts`: accept OpenAI-format POST, instantiate the Agent SDK with the tools above (each tool handler `fetch`es `http://localhost:8000/tools/...`), run the loop, stream the response in OpenAI format.
 - Add a small OpenAI-format streaming serializer (Anthropic SDK returns events; ElevenLabs wants OpenAI deltas).
-- **Gate**: `curl POST /api/llm/chat/completions -d '{"messages":[{"role":"user","content":"should i cop these AirPods"}]}'` returns a streamed response that references real numbers from Maya's engine output.
+- **Gate**: `curl POST /api/llm/chat/completions -d '{"messages":[{"role":"user","content":"should i cop these AirPods"}]}'` returns a streamed response that references real numbers from Luca's engine output.
 
 **Phase 3 — Point ElevenLabs at the Custom LLM (30 min)**
 - ElevenLabs dashboard → agent → LLM settings → Custom LLM → paste URL.
@@ -149,7 +149,7 @@ Mapped one-to-one onto the engine. Each tool description tells Claude what it do
 - Embed the engine profile view via `<iframe src="http://localhost:8000/profile?persona=X" />`. Re-skin later if we have time.
 
 **Phase 6 — Demo recording (60 min)**
-- Maya, AirPods $250 — voice → WAIT verdict → switch to chat → "what if I cancel Apple Music + Audible" → text response → switch persona → family scenario.
+- Luca, AirPods $250 — voice → WAIT verdict → switch to chat → "what if I cancel Apple Music + Audible" → text response → switch persona → family scenario.
 
 **Total: ~5 hours.** Phase 2 is the schedule hinge.
 

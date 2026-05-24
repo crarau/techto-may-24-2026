@@ -130,7 +130,7 @@ text(s, "voice or text · 99% deterministic engine, 1% AI · never invents a num
 # ---- S4 the money shot ----
 s = slide(INK)
 text(s, "real data in. honest answer out. in seconds.", 0.7, 0.45, 12, 0.7, 24, WHITE)
-img(s, "full-maya.png", 0.7, 1.25, 12, 6.0)
+img(s, "full-luca.png", 0.7, 1.25, 12, 6.0)
 
 # ---- S5 four people, four wallets (the financial dashboards) ----
 s = slide(CREAM)
@@ -138,7 +138,7 @@ text(s, "four people. four wallets. one agent.", 0.7, 0.5, 12, 0.7, 30, INK)
 text(s, "every verdict reads their real Tangerine-style account — income, subs, goals, spending.",
      0.7, 1.2, 12, 0.5, 16, SOFT, bold=False, font=BODY)
 people = [
-    ("profile-maya.png", "maya", "19, barista · −$470/mo"),
+    ("profile-luca.png", "luca", "19, barista · −$470/mo"),
     ("profile-daniel.png", "daniel", "26, dev · +$275/mo, saving for a home"),
     ("profile-chen.png", "the chens", "family of 4 · +$6.9k/mo"),
     ("profile-margaret.png", "margaret", "retired · +$1.3k/mo, owns home"),
@@ -155,7 +155,7 @@ for i, (im, name, sub) in enumerate(people):
 # ---- S6 same agent, different call ----
 s = slide(CREAM)
 text(s, "same agent. different person. different call.", 0.7, 0.5, 12.2, 0.7, 30, INK)
-pairs = [("full-maya.png", "maya (broke student)", "skip", RED),
+pairs = [("full-luca.png", "luca (broke student)", "skip", RED),
          ("full-chen.png", "the chens (comfortable family)", "cop it", GREEN)]
 for i, (im, who, verdict, col) in enumerate(pairs):
     left = 0.6 + i * 6.25

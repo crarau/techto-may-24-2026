@@ -7,7 +7,7 @@ This is the 99% - pure, rule-based functions over a persona JSON file
 the result; it never invents numbers.
 
 Run a demo:
-    python engine/engine.py            # Maya's demo query (AirPods $250)
+    python engine/engine.py            # Luca's demo query (AirPods $250)
     python engine/engine.py daniel     # another persona
 """
 
@@ -52,7 +52,7 @@ KEYWORD_CATEGORY = {
 
 # ---------- loading ----------
 
-def load_family(name: str = "maya") -> dict:
+def load_family(name: str = "luca") -> dict:
     path = DATA_DIR / f"{name}.json"
     with open(path, encoding="utf-8") as f:
         return json.load(f)
@@ -414,7 +414,7 @@ def verdict(family: dict, item: str, price: float) -> dict:
 
 if __name__ == "__main__":
     # Usage: python engine/engine.py [persona] [item] [price]
-    name = sys.argv[1] if len(sys.argv) > 1 else "maya"
+    name = sys.argv[1] if len(sys.argv) > 1 else "luca"
     fam = load_family(name)
     target = fam.get("demo_targets", {}).get("should_we_buy_query", {})
     item = sys.argv[2] if len(sys.argv) > 2 else target.get("item", "AirPods Pro")

@@ -8,8 +8,8 @@ import { TurnsProvider, useTurns } from "./contexts/TurnsContext";
 import { getPersonas, getProfile, type Profile } from "./lib/engine";
 
 function HomeInner() {
-  const [personas, setPersonas] = useState<string[]>(["maya"]);
-  const [persona, setPersona] = useState("maya");
+  const [personas, setPersonas] = useState<string[]>(["luca"]);
+  const [persona, setPersona] = useState("luca");
   const [profile, setProfile] = useState<Profile | null>(null);
   const [down, setDown] = useState(false);
   const { clear } = useTurns();

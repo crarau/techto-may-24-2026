@@ -7,9 +7,9 @@ shareable verdict card). 12-hour hackathon, 4 parallel lanes.
 **Status:** data layer shipped (4 personas), deterministic engine scaffolded and producing
 the demo verdict. See "Status by component" tags below.
 
-## Lead persona — Maya
+## Lead persona — Luca
 
-`data/families/maya.json` — Gen Z, 19, Toronto barista, shared apartment. Her data was
+`data/families/luca.json` — Gen Z, 19, Toronto barista, shared apartment. Her data was
 built for this demo and the numbers tell a true Gen Z story:
 - External income ~$1,160/mo (biweekly barista pay + occasional "E-transfer from Mom")
 - Fixed ~$980/mo ($900 rent + subs + phone) → **cash-flow negative (~ -$470/mo)**, living
@@ -34,7 +34,7 @@ That honest, surprising, actionable answer — grounded entirely in real data �
 **Owner: Pablo + Abdul.**
 
 `data/generate.py` deterministically generates 4 seeded personas (90-day window):
-**maya** (Gen Z student, lead) · **daniel** (Gen Z professional, 26) · **chen** (family) ·
+**luca** (Gen Z student, lead) · **daniel** (Gen Z professional, 26) · **chen** (family) ·
 **margaret** (elder, 68, already tagged `slow_deliberate_elder_advisor`).
 
 Each persona JSON: `accounts`, `transactions[{date, amount, merchant, category, location}]`,
@@ -49,7 +49,7 @@ data; the engine loads it directly.
 **Owner: Abdul. `engine/engine.py`, stdlib only, no LLM, no network.**
 
 Pure functions over a persona JSON — the **tools** the agent calls. Reliability and the
-"99% deterministic" pitch live here. Already implemented and validated against Maya:
+"99% deterministic" pitch live here. Already implemented and validated against Luca:
 ```
 monthly_income(f)            discretionary_monthly(f)   liquid_balance(f)
 fixed_monthly(f)             monthly_save_rate(f)        subscription_waste(f)
@@ -66,7 +66,7 @@ verdict(f, item, price) -> {
 Verdicts: **COP** (fine), **WAIT** (soon / saving toward it), **SKIP** (affordable but a
 leak/spike — *"shopping is $2,939/yr, your emergency fund 1.5x over"*), **DROP** (can't
 afford). Needs (groceries, transit, rent…) are never shamed. The LLM never decides — it
-only narrates this object. **Next:** validate against Maya's 10 `sample_questions`, then a
+only narrates this object. **Next:** validate against Luca's 10 `sample_questions`, then a
 thin query-router so free-text maps to the right tool.
 
 ---
@@ -118,8 +118,8 @@ Reuse the Tangerine snippet language from `idea.md`.
 
 ## Stretch (only if ahead of schedule): BNPL wedge
 
-Maya's data currently has **no BNPL**. A punchier, more uniquely-Gen-Z reveal would add 2–3
-Klarna/Afterpay plans to `maya.json` + a `get_bnpl_exposure()` tool ("4th active plan, $190
+Luca's data currently has **no BNPL**. A punchier, more uniquely-Gen-Z reveal would add 2–3
+Klarna/Afterpay plans to `luca.json` + a `get_bnpl_exposure()` tool ("4th active plan, $190
 due before your next paycheck"). ~30 min of generator work. Not on the critical path — the
 duplicate-subs + affordability story already lands.
 

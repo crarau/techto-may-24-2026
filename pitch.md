@@ -4,7 +4,7 @@
 
 ## At a glance
 
-- **Persona for the demo**: Maya. 23 years old. Part time barista in Toronto. $1,159 monthly income. 3 active Klarna and Afterpay installment plans. Saving for an emergency fund she keeps tapping.
+- **Persona for the demo**: Luca. 23 years old. Part time barista in Toronto. $1,159 monthly income. 3 active Klarna and Afterpay installment plans. Saving for an emergency fund she keeps tapping.
 - **The query**: *"should i cop these airpods, two fifty?"*
 - **The reveal**: a generic budget app says "yes, you have $1,452 in checking." Our agent says WAIT, and tells her exactly why with real numbers from her ledger.
 - **The hook for judges**: Tangerine wants personalized AI for under 40 customers. We built it. The 99% is deterministic Python. The 1% is voice and chat that grounds every figure in the engine, never invents one.
@@ -22,11 +22,11 @@ TIME    BEAT                            ACTION ON SCREEN / SCRIPT
                                           Abdul ...     ...@...
                                         Track 2 · "should i cop this?"
 
-0:05    Set up the problem              Cut to the app, Maya's profile
+0:05    Set up the problem              Cut to the app, Luca's profile
         (25 sec)                        panel visible.
 
                                         Voiceover (or on screen text):
-                                        "Maya is 23. Part time barista.
+                                        "Luca is 23. Part time barista.
                                         Eleven fifty a month. Three
                                         active Klarna and Afterpay
                                         plans. Saving for
@@ -126,7 +126,7 @@ Cover the three judging dimensions: real-world problem (10pt), creativity/deligh
 
 1. *"Take the LLM out, you get JSON nobody talks to. Take the engine out, you get a chatbot that invents your balance."* This is the answer to the Notion AI-removal test. Lead with this in the architecture beat.
 2. *"It never invents a figure."* Every number on screen came from the engine. Hold up the receipt.
-3. *"Three open Klarna and Afterpay plans, dining up 43% this week, save rate not covering the cushion."* The Maya reveal. The non obvious answer that proves we understand real consumers.
+3. *"Three open Klarna and Afterpay plans, dining up 43% this week, save rate not covering the cushion."* The Luca reveal. The non obvious answer that proves we understand real consumers.
 4. *"Voice and text. Same brain. Same data."* The architecture story in one line. Sells the technical sophistication without slides.
 5. *"Family financial confidence in the voice your customer actually wants to talk to."* The Tangerine pitch line. Mirrors their language back at them.
 6. *"Built today. Voice powered by ElevenLabs. Math powered by us."* The close. Sponsor namecheck.
@@ -135,7 +135,7 @@ Cover the three judging dimensions: real-world problem (10pt), creativity/deligh
 
 Useful as voiceover or as a single slide if you cut the architecture moment short.
 
-The user speaks. ElevenLabs converts speech to text. Claude Sonnet 4.6 receives the question grounded in Maya's profile baked into its system prompt. Claude decides to call `get_verdict` with the item and price. ElevenLabs hits our public HTTPS endpoint. The endpoint is our Python engine running locally, exposed via ngrok. The engine loads Maya's persona JSON, runs the deterministic rule tree, returns a structured verdict with reasons, freed up cash actions, and goal impact. Claude reads the JSON, narrates it in Charlie's voice. ElevenLabs streams audio back. The browser plays it. Verdict card renders the structured payload. Total round trip under two seconds.
+The user speaks. ElevenLabs converts speech to text. Claude Sonnet 4.6 receives the question grounded in Luca's profile baked into its system prompt. Claude decides to call `get_verdict` with the item and price. ElevenLabs hits our public HTTPS endpoint. The endpoint is our Python engine running locally, exposed via ngrok. The engine loads Luca's persona JSON, runs the deterministic rule tree, returns a structured verdict with reasons, freed up cash actions, and goal impact. Claude reads the JSON, narrates it in Charlie's voice. ElevenLabs streams audio back. The browser plays it. Verdict card renders the structured payload. Total round trip under two seconds.
 
 ## Three things to nail in rehearsal
 
@@ -191,5 +191,5 @@ Our answer to the AI-removal test, which we should land in the architecture beat
 
 - Demo agent ID: `agent_4301ksdn6jywekb9tej8wcsntcr5` (Claude Sonnet 4.6, voice Charlie).
 - Shared team agent: `agent_8201ksdk4enzesh8zwrjrdqj8kk8` (Gemini 2.5 Flash, same tools).
-- Both wired to the same workspace tools: `get_verdict`, `get_profile`, pointing at the ngrok engine with `persona=maya` hardcoded.
-- System prompt is grounded in Maya's full profile (subs, goals, categories, past buys baked in).
+- Both wired to the same workspace tools: `get_verdict`, `get_profile`, pointing at the ngrok engine with `persona=luca` hardcoded.
+- System prompt is grounded in Luca's full profile (subs, goals, categories, past buys baked in).

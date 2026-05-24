@@ -260,7 +260,7 @@ Chequing + Savings (regular, TFSA, RSP, Children's) + Credit Cards + Mutual Fund
 
 We define personas at two levels: individuals and families. Each persona is a holdings mix that determines the data we generate.
 
-#### Persona 1: Maya, 19, Gen Z student
+#### Persona 1: Luca, 19, Gen Z student
 - **Holdings**: No-Fee Chequing, Savings Account.
 - **Income**: part-time barista + occasional e-transfers from parents.
 - **Expenses**: rent share, food, transit, shared subscriptions (Spotify family, Netflix).
@@ -353,7 +353,7 @@ This role-scoped view is the demo's "wow" moment: the same agent answers a teen'
 ### Decisions still open
 
 1. Lock the family scenario. Is Chen the right archetype? Or a different cultural / income profile?
-2. Single-user demo (Maya or Daniel) in addition to the family, or family only?
+2. Single-user demo (Luca or Daniel) in addition to the family, or family only?
 3. Lock the demo question(s) that drive the 3-minute video.
 4. Voice persona: family advisor (default) or elder voice (differentiator)?
 5. Do we include Margaret as a secondary demo or skip her entirely?
@@ -371,7 +371,7 @@ A single web app where the user sees their finances visualized, can ask anything
 
 ```
 +-------------------------------------------------------------+
-| Persona switcher:  [Maya] [Daniel] [Chen Family] [Margaret] |
+| Persona switcher:  [Luca] [Daniel] [Chen Family] [Margaret] |
 +----------------------+--------------------+-----------------+
 |                      |                    |                 |
 |   DASHBOARD          |   CHAT             |  VOICE          |
@@ -452,7 +452,7 @@ Why:
 - We already have the family data. Showing it at all costs us nothing.
 - One persona switcher click in the demo proves the architecture handles both, without dedicating build hours to a second deep flow.
 
-Concretely: video spends 2:00 on Maya or Daniel doing "Should I Cop This?" + 0:30 on Sarah Chen doing "Should we buy this?" with the role-scoped variant. Same agent, same backend, persona switch is one dropdown.
+Concretely: video spends 2:00 on Luca or Daniel doing "Should I Cop This?" + 0:30 on Sarah Chen doing "Should we buy this?" with the role-scoped variant. Same agent, same backend, persona switch is one dropdown.
 
 ### Demo flow (3 minutes, revised)
 
@@ -476,7 +476,7 @@ Concretely: video spends 2:00 on Maya or Daniel doing "Should I Cop This?" + 0:3
 
 ### Open decisions (lock before coding starts)
 
-1. **Headline persona**: Daniel (Gen Z pro), Maya (Gen Z student), or a new Gen Z persona engineered specifically for the "Should I Cop This?" BNPL surprise (per Luca's spec)?
+1. **Headline persona**: Daniel (Gen Z pro), Luca (Gen Z student), or a new Gen Z persona engineered specifically for the "Should I Cop This?" BNPL surprise (per Luca's spec)?
 2. **ElevenLabs mode**: A (Conversational AI hosted) vs B (TTS only + our agent). *Recommend B.*
 3. **LLM**: Claude Sonnet vs Gemini vs Backboard router. *Recommend Claude direct.*
 4. **Frontend stack**: Vite+React vs Streamlit vs Next.js. *Recommend Vite+React.*

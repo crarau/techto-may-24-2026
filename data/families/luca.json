@@ -1,12 +1,12 @@
 {
-  "family_id": "fam_maya",
-  "family_name": "Maya (solo)",
+  "family_id": "fam_luca",
+  "family_name": "Luca (solo)",
   "archetype": "Gen Z college student in Toronto, part-time barista, lives in shared apartment",
   "as_of": "2026-05-24",
   "members": [
     {
       "member_id": "m1",
-      "name": "Maya Patel",
+      "name": "Luca Romano",
       "role": "guardian",
       "age": 19
     }

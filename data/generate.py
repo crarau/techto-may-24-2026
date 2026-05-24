@@ -301,7 +301,7 @@ def gen_chen():
     }
 
 
-def gen_maya():
+def gen_luca():
     rng = random.Random(SEED + 2)
     txn_id = make_txn_id()
     transactions = []
@@ -374,12 +374,12 @@ def gen_maya():
     sort_txns(transactions)
 
     return {
-        "family_id": "fam_maya",
-        "family_name": "Maya (solo)",
+        "family_id": "fam_luca",
+        "family_name": "Luca (solo)",
         "archetype": "Gen Z college student in Toronto, part-time barista, lives in shared apartment",
         "as_of": TODAY.isoformat(),
         "members": [
-            {"member_id": "m1", "name": "Maya Patel", "role": "guardian", "age": 19},
+            {"member_id": "m1", "name": "Luca Romano", "role": "guardian", "age": 19},
         ],
         "accounts": accounts,
         "transactions": transactions,
@@ -677,7 +677,7 @@ def main():
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for name, gen in [
         ("chen",     gen_chen),
-        ("maya",     gen_maya),
+        ("luca",     gen_luca),
         ("daniel",   gen_daniel),
         ("margaret", gen_margaret),
     ]:

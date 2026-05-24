@@ -18,13 +18,13 @@ Two-column layout, same `max-w-6xl` grid `app/page.tsx` already uses. AskBox shr
 
 ```
 +----------------------------------------------------------------------+
-|  o Tangerine . should we buy this?           [maya][noah][priya]     |
+|  o Tangerine . should we buy this?           [luca][noah][priya]     |
 +----------------------------------------------------------------------+
 |  decision column (1.05fr)            |  proof column (0.95fr)        |
 |                                      |                               |
 |  should i                            |  +-------------------------+  |
-|  cop this?                           |  | maya . age 23           |  |
-|  every answer grounded in maya's     |  | $2,840 / mo . 18% save  |  |
+|  cop this?                           |  | luca . age 23           |  |
+|  every answer grounded in luca's     |  | $2,840 / mo . 18% save  |  |
 |  real account data.                  |  |                         |  |
 |                                      |  | accounts                |  |
 |  +------------------------------+    |  |  . chequing  $612       |  |

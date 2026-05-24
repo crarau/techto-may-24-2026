@@ -265,11 +265,11 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
         q = parse_qs(parsed.query)
-        persona = q.get("persona", ["maya"])[0]
+        persona = q.get("persona", ["luca"])[0]
         try:
             fam = engine.load_family(persona)
         except (FileNotFoundError, OSError):
-            persona, fam = "maya", engine.load_family("maya")
+            persona, fam = "luca", engine.load_family("luca")
 
         # ---- JSON API (consumed by the Next.js front-end) ----
         if parsed.path.startswith("/tools/"):
