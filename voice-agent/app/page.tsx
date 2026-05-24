@@ -71,11 +71,11 @@ function HomeInner() {
             <span className="h-3.5 w-3.5 rounded-full bg-white/95" />
           </span>
           <div className="leading-none">
-            <span className="font-display text-2xl font-extrabold text-tangerine-deep">
-              Tangerine
+            <span className="font-display text-2xl font-extrabold text-tangerine-deep lowercase">
+              should i cop this?
             </span>
             <span className="ml-2 text-ink-soft text-sm lowercase">
-              · should we buy this?
+              · money decisions, grounded
             </span>
           </div>
         </div>

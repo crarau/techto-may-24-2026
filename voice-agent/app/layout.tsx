@@ -15,9 +15,9 @@ const body = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "should we buy this? · Tangerine",
+  title: "should i cop this?",
   description:
-    "A Gen-Z money agent that grounds every purchase decision in your real Tangerine account data.",
+    "A Gen-Z money agent that grounds every purchase decision in your real account data.",
 };
 
 export default function RootLayout({
