@@ -1,0 +1,1656 @@
+{
+  "family_id": "fam_maya",
+  "family_name": "Maya (solo)",
+  "archetype": "Gen Z college student in Toronto, part-time barista, lives in shared apartment",
+  "as_of": "2026-05-24",
+  "members": [
+    {
+      "member_id": "m1",
+      "name": "Maya Patel",
+      "role": "guardian",
+      "age": 19
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "a1",
+      "product": "No-Fee Chequing",
+      "owner": "m1",
+      "balance": 812.4
+    },
+    {
+      "account_id": "a2",
+      "product": "Savings Account",
+      "owner": "m1",
+      "balance": 640.0
+    }
+  ],
+  "transactions": [
+    {
+      "txn_id": "t0084",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-23",
+      "amount": -5.0,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0055",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-24",
+      "amount": -6.11,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0131",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-24",
+      "amount": -6.52,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0093",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-25",
+      "amount": -12.79,
+      "merchant": "Mandy's Salads",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0113",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-25",
+      "amount": -4.56,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0001",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-27",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0049",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-27",
+      "amount": -6.82,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0110",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-27",
+      "amount": -11.98,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0011",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-28",
+      "amount": -75.0,
+      "merchant": "Transfer to Savings",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0012",
+      "account_id": "a2",
+      "member_id": "m1",
+      "date": "2026-02-28",
+      "amount": 75.0,
+      "merchant": "Transfer from Chequing",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0035",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-28",
+      "amount": -51.34,
+      "merchant": "Whole Foods Market",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0017",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-01",
+      "amount": -900.0,
+      "merchant": "Roommate Rent E-transfer",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0126",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-01",
+      "amount": -3.17,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0064",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-02",
+      "amount": -4.76,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0065",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-03",
+      "amount": -7.98,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0069",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -4.93,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0087",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -14.77,
+      "merchant": "Boston Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0095",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -15.99,
+      "merchant": "Pizza Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0122",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -5.79,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0125",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -11.67,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0137",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -52.3,
+      "merchant": "Indigo",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0008",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": 150.0,
+      "merchant": "E-transfer from Mom",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0023",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": -16.49,
+      "merchant": "Netflix Standard",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0080",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": -7.62,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0036",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-07",
+      "amount": -39.67,
+      "merchant": "No Frills",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0020",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-08",
+      "amount": -5.99,
+      "merchant": "Spotify Student",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0057",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-09",
+      "amount": -5.12,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0094",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-09",
+      "amount": -16.48,
+      "merchant": "Sushi Yu",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0060",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-10",
+      "amount": -4.14,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0070",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-11",
+      "amount": -6.46,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0145",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-12",
+      "amount": -10.34,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0002",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-13",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0026",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-14",
+      "amount": -5.99,
+      "merchant": "Apple Music",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0037",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-14",
+      "amount": -36.16,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0096",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-15",
+      "amount": -32.61,
+      "merchant": "Earls Kitchen",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0100",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-15",
+      "amount": -27.18,
+      "merchant": "Sushi Yu",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0123",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-15",
+      "amount": -6.96,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0086",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-16",
+      "amount": -4.35,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0118",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-16",
+      "amount": -8.87,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0108",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-17",
+      "amount": -6.1,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0029",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-20",
+      "amount": -16.95,
+      "merchant": "Audible",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0146",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-20",
+      "amount": -14.81,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0038",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-21",
+      "amount": -39.01,
+      "merchant": "Whole Foods Market",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0114",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-21",
+      "amount": -8.98,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0139",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-21",
+      "amount": -21.7,
+      "merchant": "Sephora",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0032",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-22",
+      "amount": -35.0,
+      "merchant": "Freedom Mobile",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0058",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-23",
+      "amount": -6.23,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0083",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-23",
+      "amount": -4.49,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0107",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-23",
+      "amount": -7.32,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0109",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-23",
+      "amount": -6.82,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0052",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-24",
+      "amount": -5.68,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0112",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-24",
+      "amount": -10.22,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0124",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-24",
+      "amount": -7.78,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0074",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-26",
+      "amount": -3.66,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0003",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-27",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0077",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-27",
+      "amount": -4.09,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0013",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-28",
+      "amount": -75.0,
+      "merchant": "Transfer to Savings",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0014",
+      "account_id": "a2",
+      "member_id": "m1",
+      "date": "2026-03-28",
+      "amount": 75.0,
+      "merchant": "Transfer from Chequing",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0039",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-28",
+      "amount": -47.12,
+      "merchant": "Costco Wholesale",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0062",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-29",
+      "amount": -3.83,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0054",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-30",
+      "amount": -4.21,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0063",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-30",
+      "amount": -4.3,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0073",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-30",
+      "amount": -6.86,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0106",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-30",
+      "amount": -8.25,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0140",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-30",
+      "amount": -31.26,
+      "merchant": "Winners",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0067",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-31",
+      "amount": -5.71,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0018",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-01",
+      "amount": -900.0,
+      "merchant": "Roommate Rent E-transfer",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0009",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-02",
+      "amount": 200.0,
+      "merchant": "E-transfer from Mom",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0099",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-02",
+      "amount": -18.06,
+      "merchant": "Boston Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0040",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-04",
+      "amount": -51.2,
+      "merchant": "Costco Wholesale",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0024",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-05",
+      "amount": -16.49,
+      "merchant": "Netflix Standard",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0091",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-05",
+      "amount": -24.46,
+      "merchant": "The Keg",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0129",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-06",
+      "amount": -7.04,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0143",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-06",
+      "amount": -14.91,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0119",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-07",
+      "amount": -10.51,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0141",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-07",
+      "amount": -20.98,
+      "merchant": "Winners",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0021",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-08",
+      "amount": -5.99,
+      "merchant": "Spotify Student",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0120",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-08",
+      "amount": -4.52,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0056",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-09",
+      "amount": -6.04,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0004",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-10",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0041",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-11",
+      "amount": -49.33,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0050",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-11",
+      "amount": -7.24,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0082",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -6.09,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0097",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -31.0,
+      "merchant": "Mandy's Salads",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0142",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -63.72,
+      "merchant": "Indigo",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0027",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-14",
+      "amount": -5.99,
+      "merchant": "Apple Music",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0068",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-15",
+      "amount": -4.86,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0089",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-15",
+      "amount": -14.95,
+      "merchant": "Sushi Yu",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0076",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-16",
+      "amount": -6.61,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0042",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-18",
+      "amount": -59.69,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0147",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-18",
+      "amount": -18.38,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0059",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-19",
+      "amount": -6.92,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0030",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-20",
+      "amount": -16.95,
+      "merchant": "Audible",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0071",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-20",
+      "amount": -5.28,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0072",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-20",
+      "amount": -3.88,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0116",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-20",
+      "amount": -7.47,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0033",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-22",
+      "amount": -35.0,
+      "merchant": "Freedom Mobile",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0105",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-22",
+      "amount": -4.01,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0005",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-24",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0043",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-25",
+      "amount": -58.54,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0101",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-25",
+      "amount": -4.61,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0121",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-25",
+      "amount": -3.44,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0102",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-26",
+      "amount": -7.25,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0079",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-27",
+      "amount": -4.15,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0104",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-27",
+      "amount": -11.95,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0128",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-27",
+      "amount": -4.01,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0015",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-28",
+      "amount": -75.0,
+      "merchant": "Transfer to Savings",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0016",
+      "account_id": "a2",
+      "member_id": "m1",
+      "date": "2026-04-28",
+      "amount": 75.0,
+      "merchant": "Transfer from Chequing",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0019",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-01",
+      "amount": -900.0,
+      "merchant": "Roommate Rent E-transfer",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0078",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-01",
+      "amount": -4.01,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0044",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-02",
+      "amount": -39.31,
+      "merchant": "Costco Wholesale",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0085",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-02",
+      "amount": -6.64,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0088",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-02",
+      "amount": -23.53,
+      "merchant": "Earls Kitchen",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0130",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-02",
+      "amount": -7.39,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0066",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-03",
+      "amount": -7.09,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0025",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -16.49,
+      "merchant": "Netflix Standard",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0075",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -5.69,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0127",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -6.06,
+      "merchant": "Lyft",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0132",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -8.75,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0117",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-07",
+      "amount": -8.32,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0134",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-07",
+      "amount": -53.62,
+      "merchant": "Winners",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0006",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0010",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": 100.0,
+      "merchant": "E-transfer from Mom",
+      "category": "transfer_in",
+      "location": null
+    },
+    {
+      "txn_id": "t0022",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": -5.99,
+      "merchant": "Spotify Student",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0098",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": -18.32,
+      "merchant": "Sushi Yu",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0045",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-09",
+      "amount": -46.59,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0051",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-09",
+      "amount": -7.11,
+      "merchant": "Starbucks",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0136",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-09",
+      "amount": -51.47,
+      "merchant": "Amazon",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0133",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-11",
+      "amount": -69.32,
+      "merchant": "Winners",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0053",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-12",
+      "amount": -7.19,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0061",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-13",
+      "amount": -6.42,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0028",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-14",
+      "amount": -5.99,
+      "merchant": "Apple Music",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0081",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-15",
+      "amount": -6.57,
+      "merchant": "Aroma Espresso Bar",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0046",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-16",
+      "amount": -54.09,
+      "merchant": "Metro",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0138",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-16",
+      "amount": -51.76,
+      "merchant": "Amazon",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0092",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-17",
+      "amount": -26.29,
+      "merchant": "Earls Kitchen",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0115",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-18",
+      "amount": -9.39,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0047",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-19",
+      "amount": -16.59,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0031",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-20",
+      "amount": -16.95,
+      "merchant": "Audible",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0090",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-20",
+      "amount": -26.24,
+      "merchant": "Pizza Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0007",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-22",
+      "amount": 420.0,
+      "merchant": "Coffee Co. Payroll",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0034",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-22",
+      "amount": -35.0,
+      "merchant": "Freedom Mobile",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0103",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-22",
+      "amount": -8.2,
+      "merchant": "Uber",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0135",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-22",
+      "amount": -18.76,
+      "merchant": "Aritzia",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0048",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-23",
+      "amount": -36.74,
+      "merchant": "Costco Wholesale",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0111",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-23",
+      "amount": -6.93,
+      "merchant": "TTC PRESTO",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0144",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-23",
+      "amount": -27.4,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    }
+  ],
+  "recurring": [
+    {
+      "merchant": "Roommate Rent E-transfer",
+      "amount": -900.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Spotify Student",
+      "amount": -5.99,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Netflix Standard",
+      "amount": -16.49,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Apple Music",
+      "amount": -5.99,
+      "cadence": "monthly",
+      "account_id": "a1",
+      "flag": "duplicate_music_sub"
+    },
+    {
+      "merchant": "Audible",
+      "amount": -16.95,
+      "cadence": "monthly",
+      "account_id": "a1",
+      "flag": "unused_3_months"
+    },
+    {
+      "merchant": "Freedom Mobile",
+      "amount": -35.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    }
+  ],
+  "goals": [
+    {
+      "goal_id": "g1",
+      "scope": "m1",
+      "label": "Emergency fund $2,000",
+      "target": 2000,
+      "current": 640,
+      "deadline": "2026-12-31"
+    },
+    {
+      "goal_id": "g2",
+      "scope": "m1",
+      "label": "AirPods Pro",
+      "target": 250,
+      "current": 90,
+      "deadline": "2026-08-01"
+    }
+  ],
+  "obligations": [],
+  "purchase_history": [
+    {
+      "item": "Backpack",
+      "price": 85.0,
+      "date": "2025-09-02",
+      "used": "yes",
+      "owner": "m1"
+    },
+    {
+      "item": "Yoga mat",
+      "price": 45.0,
+      "date": "2025-11-10",
+      "used": "no",
+      "owner": "m1"
+    },
+    {
+      "item": "Textbook bundle",
+      "price": 320.0,
+      "date": "2026-01-08",
+      "used": "yes",
+      "owner": "m1"
+    },
+    {
+      "item": "Bluetooth speaker",
+      "price": 60.0,
+      "date": "2025-12-22",
+      "used": "partial",
+      "owner": "m1"
+    }
+  ],
+  "demo_targets": {
+    "should_we_buy_query": {
+      "item": "AirPods Pro",
+      "price": 250.0,
+      "asked_by": "m1"
+    },
+    "proactive_anomaly": {
+      "type": "duplicate_subscription",
+      "merchants": [
+        "Spotify Student",
+        "Apple Music"
+      ],
+      "annualized_save": 71.88
+    }
+  },
+  "sample_questions": [
+    {
+      "by": "m1",
+      "angle": "affordability",
+      "q": "Can I afford $250 AirPods this month?"
+    },
+    {
+      "by": "m1",
+      "angle": "goal_tracking",
+      "q": "How much have I saved vs my $2,000 emergency goal?"
+    },
+    {
+      "by": "m1",
+      "angle": "subscription",
+      "q": "Which of my subscriptions am I paying for but barely using?"
+    },
+    {
+      "by": "m1",
+      "angle": "subscription",
+      "q": "Am I paying for two music services? Should I cancel one?"
+    },
+    {
+      "by": "m1",
+      "angle": "category",
+      "q": "How much did I spend on coffee this month?"
+    },
+    {
+      "by": "m1",
+      "angle": "what_if",
+      "q": "If I cut my Starbucks habit in half, what would I save by December?"
+    },
+    {
+      "by": "m1",
+      "angle": "time_comparison",
+      "q": "Am I spending more on food this month than last?"
+    },
+    {
+      "by": "m1",
+      "angle": "category",
+      "q": "What is my biggest spending category outside of rent?"
+    },
+    {
+      "by": "m1",
+      "angle": "what_if",
+      "q": "If I save $75 every two weeks, when will I hit my emergency goal?"
+    },
+    {
+      "by": "m1",
+      "angle": "past_outcome",
+      "q": "Have I actually used the things I bought in the last 6 months?"
+    }
+  ]
+}

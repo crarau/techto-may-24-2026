@@ -1,0 +1,1302 @@
+{
+  "family_id": "fam_margaret",
+  "family_name": "Margaret (solo)",
+  "archetype": "Retired widow in Toronto, late 60s, owns home outright, lives on pension and RIF",
+  "as_of": "2026-05-24",
+  "members": [
+    {
+      "member_id": "m1",
+      "name": "Margaret Doyle",
+      "role": "guardian",
+      "age": 68
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "a1",
+      "product": "No-Fee Chequing",
+      "owner": "m1",
+      "balance": 4820.0
+    },
+    {
+      "account_id": "a2",
+      "product": "Savings Account",
+      "owner": "m1",
+      "balance": 28400.0
+    },
+    {
+      "account_id": "a3",
+      "product": "RIF Savings",
+      "owner": "m1",
+      "balance": 142000.0
+    },
+    {
+      "account_id": "a4",
+      "product": "GIC 2-year",
+      "owner": "m1",
+      "balance": 30000.0
+    }
+  ],
+  "transactions": [
+    {
+      "txn_id": "t0025",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-24",
+      "amount": -42.0,
+      "merchant": "Bell Home Phone",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0041",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-25",
+      "amount": -89.41,
+      "merchant": "No Frills",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0086",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-25",
+      "amount": -10.08,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0001",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-27",
+      "amount": 1180.0,
+      "merchant": "Service Canada (CPP)",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0004",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-27",
+      "amount": 720.0,
+      "merchant": "Old Age Security",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0104",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-28",
+      "amount": -40.71,
+      "merchant": "Bouclair",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0107",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-02-28",
+      "amount": -25.42,
+      "merchant": "Bouclair",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0042",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-01",
+      "amount": -22.86,
+      "merchant": "Metro",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0073",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-01",
+      "amount": -3.8,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0076",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-02",
+      "amount": -4.62,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0092",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-02",
+      "amount": -9.49,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0058",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-03",
+      "amount": -67.94,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0043",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -76.73,
+      "merchant": "Metro",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0085",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-04",
+      "amount": -5.75,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0007",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": 1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0010",
+      "account_id": "a3",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": -1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0067",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-05",
+      "amount": -20.3,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0089",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-06",
+      "amount": -14.55,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0062",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-07",
+      "amount": -66.9,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0035",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-08",
+      "amount": -19.99,
+      "merchant": "Crave",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0013",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-10",
+      "amount": -380.0,
+      "merchant": "City of Toronto Property Tax",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0095",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-10",
+      "amount": -6.48,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0044",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-11",
+      "amount": -92.36,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0072",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-11",
+      "amount": -4.52,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0029",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-12",
+      "amount": -95.0,
+      "merchant": "Home Insurance",
+      "category": "insurance",
+      "location": null
+    },
+    {
+      "txn_id": "t0038",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-12",
+      "amount": -29.99,
+      "merchant": "The Globe and Mail",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0045",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-14",
+      "amount": -19.78,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0016",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-15",
+      "amount": -110.0,
+      "merchant": "Toronto Hydro",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0087",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-16",
+      "amount": -15.83,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0063",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-17",
+      "amount": -55.03,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0019",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-18",
+      "amount": -85.0,
+      "merchant": "Enbridge Gas",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0046",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-18",
+      "amount": -87.16,
+      "merchant": "Metro",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0032",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-20",
+      "amount": -50.0,
+      "merchant": "United Way Donation",
+      "category": "charity",
+      "location": null
+    },
+    {
+      "txn_id": "t0066",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-20",
+      "amount": -69.24,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0022",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-22",
+      "amount": -69.99,
+      "merchant": "Rogers Internet",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0026",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-24",
+      "amount": -42.0,
+      "merchant": "Bell Home Phone",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0047",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-25",
+      "amount": -59.77,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0102",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-25",
+      "amount": -49.57,
+      "merchant": "Canadian Tire",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0002",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-27",
+      "amount": 1180.0,
+      "merchant": "Service Canada (CPP)",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0005",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-03-27",
+      "amount": 720.0,
+      "merchant": "Old Age Security",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0048",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-01",
+      "amount": -91.73,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0064",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-02",
+      "amount": -43.29,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0096",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-02",
+      "amount": -17.55,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0008",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-05",
+      "amount": 1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0011",
+      "account_id": "a3",
+      "member_id": "m1",
+      "date": "2026-04-05",
+      "amount": -1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0106",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-05",
+      "amount": -23.51,
+      "merchant": "Bouclair",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0083",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-06",
+      "amount": -36.75,
+      "merchant": "The Keg",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0036",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-08",
+      "amount": -19.99,
+      "merchant": "Crave",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0049",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-08",
+      "amount": -80.26,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0097",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-09",
+      "amount": -14.23,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0014",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-10",
+      "amount": -380.0,
+      "merchant": "City of Toronto Property Tax",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0059",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-11",
+      "amount": -54.21,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0030",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -95.0,
+      "merchant": "Home Insurance",
+      "category": "insurance",
+      "location": null
+    },
+    {
+      "txn_id": "t0039",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -29.99,
+      "merchant": "The Globe and Mail",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0074",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -6.3,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0108",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-12",
+      "amount": -150.0,
+      "merchant": "Indigo (gift for grandchild)",
+      "category": "gift",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0071",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-13",
+      "amount": -5.63,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0077",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-13",
+      "amount": -4.98,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0094",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-13",
+      "amount": -14.9,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0080",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-14",
+      "amount": -35.89,
+      "merchant": "Swiss Chalet",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0017",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-15",
+      "amount": -110.0,
+      "merchant": "Toronto Hydro",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0050",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-15",
+      "amount": -68.28,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0091",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-16",
+      "amount": -15.42,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0020",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-18",
+      "amount": -85.0,
+      "merchant": "Enbridge Gas",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0033",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-20",
+      "amount": -50.0,
+      "merchant": "United Way Donation",
+      "category": "charity",
+      "location": null
+    },
+    {
+      "txn_id": "t0023",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-22",
+      "amount": -69.99,
+      "merchant": "Rogers Internet",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0051",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-22",
+      "amount": -79.82,
+      "merchant": "Whole Foods Market",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0109",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-22",
+      "amount": -420.0,
+      "merchant": "Dental Clinic",
+      "category": "health",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0027",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-24",
+      "amount": -42.0,
+      "merchant": "Bell Home Phone",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0052",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-24",
+      "amount": -15.79,
+      "merchant": "No Frills",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0100",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-25",
+      "amount": -17.98,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0082",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-26",
+      "amount": -62.36,
+      "merchant": "Boston Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0098",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-26",
+      "amount": -14.61,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0003",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-27",
+      "amount": 1180.0,
+      "merchant": "Service Canada (CPP)",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0006",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-27",
+      "amount": 720.0,
+      "merchant": "Old Age Security",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0053",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-29",
+      "amount": -83.92,
+      "merchant": "Sobeys",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0065",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-04-30",
+      "amount": -60.46,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0060",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-01",
+      "amount": -67.59,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0101",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-01",
+      "amount": -11.22,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0061",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-03",
+      "amount": -28.26,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0069",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-03",
+      "amount": -69.64,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0084",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-04",
+      "amount": -21.62,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0009",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": 1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "income",
+      "location": null
+    },
+    {
+      "txn_id": "t0012",
+      "account_id": "a3",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -1200.0,
+      "merchant": "RIF Withdrawal",
+      "category": "transfer_out",
+      "location": null
+    },
+    {
+      "txn_id": "t0078",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-05",
+      "amount": -3.19,
+      "merchant": "Tim Hortons",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0054",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-06",
+      "amount": -74.74,
+      "merchant": "Loblaws",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0037",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": -19.99,
+      "merchant": "Crave",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0057",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-08",
+      "amount": -32.37,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0099",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-09",
+      "amount": -7.56,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0015",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-10",
+      "amount": -380.0,
+      "merchant": "City of Toronto Property Tax",
+      "category": "housing",
+      "location": null
+    },
+    {
+      "txn_id": "t0081",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-11",
+      "amount": -64.79,
+      "merchant": "Boston Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0090",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-11",
+      "amount": -9.98,
+      "merchant": "TTC PRESTO Senior",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0031",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-12",
+      "amount": -95.0,
+      "merchant": "Home Insurance",
+      "category": "insurance",
+      "location": null
+    },
+    {
+      "txn_id": "t0040",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-12",
+      "amount": -29.99,
+      "merchant": "The Globe and Mail",
+      "category": "subscription",
+      "location": null
+    },
+    {
+      "txn_id": "t0079",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-12",
+      "amount": -38.13,
+      "merchant": "Boston Pizza",
+      "category": "dining",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0055",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-13",
+      "amount": -68.02,
+      "merchant": "No Frills",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0018",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-15",
+      "amount": -110.0,
+      "merchant": "Toronto Hydro",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0068",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-17",
+      "amount": -27.45,
+      "merchant": "Rexall",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0075",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-17",
+      "amount": -5.46,
+      "merchant": "Second Cup",
+      "category": "coffee",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0021",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-18",
+      "amount": -85.0,
+      "merchant": "Enbridge Gas",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0070",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-18",
+      "amount": -47.97,
+      "merchant": "Shoppers Drug Mart",
+      "category": "pharmacy",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0088",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-18",
+      "amount": -13.49,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0105",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-19",
+      "amount": -20.52,
+      "merchant": "Bouclair",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0034",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-20",
+      "amount": -50.0,
+      "merchant": "United Way Donation",
+      "category": "charity",
+      "location": null
+    },
+    {
+      "txn_id": "t0056",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-20",
+      "amount": -60.09,
+      "merchant": "Metro",
+      "category": "groceries",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0103",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-21",
+      "amount": -20.08,
+      "merchant": "Home Hardware",
+      "category": "shopping",
+      "location": "Toronto"
+    },
+    {
+      "txn_id": "t0024",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-22",
+      "amount": -69.99,
+      "merchant": "Rogers Internet",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0028",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-24",
+      "amount": -42.0,
+      "merchant": "Bell Home Phone",
+      "category": "utilities",
+      "location": null
+    },
+    {
+      "txn_id": "t0093",
+      "account_id": "a1",
+      "member_id": "m1",
+      "date": "2026-05-24",
+      "amount": -12.43,
+      "merchant": "Beck Taxi",
+      "category": "transit",
+      "location": "Toronto"
+    }
+  ],
+  "recurring": [
+    {
+      "merchant": "City of Toronto Property Tax",
+      "amount": -380.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Toronto Hydro",
+      "amount": -110.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Enbridge Gas",
+      "amount": -85.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Rogers Internet",
+      "amount": -69.99,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Bell Home Phone",
+      "amount": -42.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Home Insurance",
+      "amount": -95.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "United Way Donation",
+      "amount": -50.0,
+      "cadence": "monthly",
+      "account_id": "a1"
+    },
+    {
+      "merchant": "Crave",
+      "amount": -19.99,
+      "cadence": "monthly",
+      "account_id": "a1",
+      "flag": "watched_once_in_60d"
+    },
+    {
+      "merchant": "The Globe and Mail",
+      "amount": -29.99,
+      "cadence": "monthly",
+      "account_id": "a1"
+    }
+  ],
+  "goals": [
+    {
+      "goal_id": "g1",
+      "scope": "m1",
+      "label": "Grandchildren gift fund 2026",
+      "target": 3000,
+      "current": 1200,
+      "deadline": "2026-12-20"
+    },
+    {
+      "goal_id": "g2",
+      "scope": "m1",
+      "label": "Emergency cushion",
+      "target": 30000,
+      "current": 28400,
+      "deadline": "2026-12-31"
+    }
+  ],
+  "obligations": [],
+  "purchase_history": [
+    {
+      "item": "Reclining chair",
+      "price": 780.0,
+      "date": "2025-10-08",
+      "used": "yes",
+      "owner": "m1"
+    },
+    {
+      "item": "Hearing aid",
+      "price": 2400.0,
+      "date": "2025-04-15",
+      "used": "yes",
+      "owner": "m1"
+    },
+    {
+      "item": "Tablet",
+      "price": 399.0,
+      "date": "2024-12-20",
+      "used": "partial",
+      "owner": "m1"
+    },
+    {
+      "item": "Garden tools",
+      "price": 140.0,
+      "date": "2025-05-12",
+      "used": "yes",
+      "owner": "m1"
+    }
+  ],
+  "demo_targets": {
+    "voice_persona": "slow_deliberate_elder_advisor",
+    "reassurance_query": {
+      "q": "Did all my bills get paid this month?",
+      "asked_by": "m1"
+    },
+    "proactive_anomaly": {
+      "type": "rarely_used_subscription",
+      "merchant": "Crave",
+      "annualized_save": 239.88
+    }
+  },
+  "sample_questions": [
+    {
+      "by": "m1",
+      "angle": "reassurance",
+      "q": "Did all my bills get paid this month?"
+    },
+    {
+      "by": "m1",
+      "angle": "category",
+      "q": "How much did I spend on groceries this month?"
+    },
+    {
+      "by": "m1",
+      "angle": "anomaly",
+      "q": "Was there anything unusual in my account this month?"
+    },
+    {
+      "by": "m1",
+      "angle": "goal_tracking",
+      "q": "Am I on track for my grandchildren gift fund?"
+    },
+    {
+      "by": "m1",
+      "angle": "time_comparison",
+      "q": "Am I spending more or less than last month?"
+    },
+    {
+      "by": "m1",
+      "angle": "subscription",
+      "q": "Which of my subscriptions do I actually use?"
+    },
+    {
+      "by": "m1",
+      "angle": "affordability",
+      "q": "Can I afford a $1,200 trip to visit my sister in Halifax this fall?"
+    },
+    {
+      "by": "m1",
+      "angle": "recommendation",
+      "q": "Should I move some of my savings into a GIC for a better return?"
+    },
+    {
+      "by": "m1",
+      "angle": "category",
+      "q": "How much have I spent on health this year?"
+    },
+    {
+      "by": "m1",
+      "angle": "what_if",
+      "q": "If I keep saving at this pace, what will I have by the end of the year?"
+    }
+  ]
+}
