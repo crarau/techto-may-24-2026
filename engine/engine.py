@@ -377,8 +377,8 @@ def verdict(family: dict, item: str, price: float) -> dict:
         else:
             decision = "WAIT"
             reasons.append(
-                f"You *can* cover the ${price:.0f} from your ${liquid:.0f}, but it tightens you "
-                f"up before rent. Sleep on it a day."
+                f"You *can* cover the ${price:.0f} from your ${liquid:.0f}, but it'd tighten your "
+                f"cushion. Sleep on it a day."
             )
 
     if waste["items"] and decision != "COP":
