@@ -357,3 +357,137 @@ This role-scoped view is the demo's "wow" moment: the same agent answers a teen'
 3. Lock the demo question(s) that drive the 3-minute video.
 4. Voice persona: family advisor (default) or elder voice (differentiator)?
 5. Do we include Margaret as a secondary demo or skip her entirely?
+
+---
+
+## Agent UX + Architecture Spec (discussion draft, do not build yet)
+
+Layers on top of Luca's `build-spec.md` (engine + tools + verdict card). Adds the **visualization**, **chat**, **ElevenLabs SDK integration**, and **persona reconciliation** that Luca's spec does not yet cover.
+
+### Goal in one line
+A single web app where the user sees their finances visualized, can ask anything by text chat or voice, and gets grounded answers (and a verdict card when relevant). Same agent backend, two input modes, one persona at a time.
+
+### App shape (one page, three panels)
+
+```
++-------------------------------------------------------------+
+| Persona switcher:  [Maya] [Daniel] [Chen Family] [Margaret] |
++----------------------+--------------------+-----------------+
+|                      |                    |                 |
+|   DASHBOARD          |   CHAT             |  VOICE          |
+|   (left)             |   (center)         |  (right)        |
+|                      |                    |                 |
+|  Account cards       |  Stream of user    |  ElevenLabs     |
+|  Spending breakdown  |  + agent messages  |  press-to-talk  |
+|  Goal bars           |  Tool-call cards   |  widget         |
+|  Subscriptions list  |  collapse inline   |                 |
+|  Recurring obligns   |  Verdict cards     |  Transcript     |
+|  Recent purchases    |  inline when       |  also lands in  |
+|                      |  "should I buy"    |  the chat panel |
++----------------------+--------------------+-----------------+
+                  |
+                  v
+          /api/chat  (SSE)
+          /api/voice (ElevenLabs webhook or stream)
+                  |
+                  v
+        Agent backend (Python)
+        ─ Claude tool-calling
+        ─ Calls into Luca's deterministic tool layer
+                  |
+                  v
+        SQLite (one DB per persona, generated from data/families/*.json)
+```
+
+### Visualization layer (the part Luca's spec does not yet cover)
+
+The dashboard sells "this is a real product." Without it the demo looks like a CLI with TTS.
+
+Components, all read-only:
+- **Account cards** — one per account. Product name, owner (or "Joint"), balance. Mortgage and credit card show in red.
+- **Spending breakdown** — pie or horizontal bar chart, last 30 days by category. Filterable by member when on family persona.
+- **Goal progress bars** — one per goal in `goals[]`. Show current, target, deadline, on/off pace.
+- **Subscriptions list** — flagged ones (`unused_8_weeks`, `duplicate_music_sub`, `watched_once_in_60d`) get a red badge. Annualized cost shown.
+- **Recurring obligations** — mortgage, rent, utilities. Just a list.
+- **Purchase history** — past large purchases with `used: yes/no/partial` color-coded badges.
+
+No editing. The chat or voice is the only way to "do" anything.
+
+### Chat panel
+
+Standard chat UX. Streaming responses via SSE.
+
+- Tool calls render as collapsed inline cards while the agent is working: `Checked budget pace`, `Pulled BNPL exposure`, etc. Click to expand and see the structured result. Sells the "thoughtful agent, not chatbot" criterion.
+- When the user asks a "should I buy X" question, a **verdict card** (Luca's Component 5 design) renders inline at the end of the agent's response.
+- Single conversation per persona session. Switching persona resets history.
+
+### Voice panel — ElevenLabs SDK choice
+
+Chip locked ElevenLabs over Gemini Live. Two integration modes on the table:
+
+**Mode A — ElevenLabs Conversational AI** (their hosted agent product)
+- They handle STT, LLM call, TTS in one stream.
+- We configure tools as webhooks pointing at our backend.
+- Pros: fastest to a demo, very low latency.
+- Cons: our chat agent and voice agent diverge (they share tools but not the system prompt or memory).
+
+**Mode B — ElevenLabs TTS only + browser STT + our agent**
+- Browser captures audio, Web Speech API does STT.
+- Our FastAPI agent receives text, runs the same chain as chat.
+- Agent response text is streamed to ElevenLabs TTS, audio plays in browser.
+- Pros: chat and voice are literally the same agent, same memory, same tool chain. Cleanest pitch.
+- Cons: slightly more latency (one extra hop), STT quality depends on browser.
+
+**Recommendation: Mode B.** The pitch "same agent, two input modes" is cleaner than "two agents that share tools." Latency loss is invisible in a recorded video.
+
+### Persona reconciliation (the family question)
+
+Chip's wavering: family is interesting but adds engineering surface. Luca's spec dropped family entirely for a single Gen Z persona.
+
+**Recommendation**: keep family data shape (already generated), but **default the headline demo to Gen Z solo (Luca's direction)** and use the family as a 30-second "breadth proof" callout near the end.
+
+Why:
+- Gen Z slang/verdict matches Tangerine's stated personalization trend (intel: under-40 is biggest segment).
+- Family architecture (role-scoped queries) is real engineering work that competes with polish in 7 hours.
+- We already have the family data. Showing it at all costs us nothing.
+- One persona switcher click in the demo proves the architecture handles both, without dedicating build hours to a second deep flow.
+
+Concretely: video spends 2:00 on Maya or Daniel doing "Should I Cop This?" + 0:30 on Sarah Chen doing "Should we buy this?" with the role-scoped variant. Same agent, same backend, persona switch is one dropdown.
+
+### Demo flow (3 minutes, revised)
+
+1. **0:00 to 0:15** — title + premise. "Most personal finance apps tell you where the money went. Tangerine could tell you what to do next."
+2. **0:15 to 0:45** — dashboard intro on Daniel (or whichever solo persona we lock). Show accounts, spending pie, goals. "90 days of Tangerine-shaped transactions, ingested and visualized."
+3. **0:45 to 1:45** — voice query: *"Should I cop these $90 Jordans?"* Agent narrates, tool-call cards bloom in the chat panel, verdict card appears: **DROP**. Reasons grounded in real numbers from the dataset.
+4. **1:45 to 2:15** — chat query: *"If I cancel Crave and Apple TV+, when do I hit my Japan goal?"* Streamed text answer with the math.
+5. **2:15 to 2:45** — persona switch to Chen family. Sarah's voice: *"Should we buy a $300 stroller for Lily?"* Agent shows the guardian-scope answer (pulls joint accounts + Lily's history). "Same agent. Family edition."
+6. **2:45 to 2:55** — pitch landing: lean banks ship the things big banks cannot approve. Built in 7 hours.
+7. **2:55 to 3:00** — team + emails.
+
+### Tech stack proposal
+
+- **Frontend**: Vite + React + Tailwind. Three-panel layout, mobile-framed for screenshots where it matters (the verdict card).
+- **Charts**: Recharts. Two charts max, simple shapes.
+- **Backend**: FastAPI (Python). One process. SSE endpoint for chat. WebSocket or fetch-stream for voice transcript routing.
+- **LLM**: Claude Sonnet for tool use + reasoning. Pitch mentions "model-agnostic, can swap to Gemini" to score with Tangerine.
+- **Voice**: ElevenLabs TTS + Web Speech API STT (Mode B).
+- **Data**: persona JSONs from `data/families/` loaded into SQLite-in-memory at startup, one DB per persona, swapped on persona switch.
+- **Hosting**: Vercel for frontend, Fly.io or Render for backend. Or one Vercel project with serverless functions if FastAPI is too heavy for the deadline.
+
+### Open decisions (lock before coding starts)
+
+1. **Headline persona**: Daniel (Gen Z pro), Maya (Gen Z student), or a new Gen Z persona engineered specifically for the "Should I Cop This?" BNPL surprise (per Luca's spec)?
+2. **ElevenLabs mode**: A (Conversational AI hosted) vs B (TTS only + our agent). *Recommend B.*
+3. **LLM**: Claude Sonnet vs Gemini vs Backboard router. *Recommend Claude direct.*
+4. **Frontend stack**: Vite+React vs Streamlit vs Next.js. *Recommend Vite+React.*
+5. **Family scope**: 30-second callout (recommended) vs deeper demo vs cut entirely?
+6. **Persona switching**: dropdown vs URL vs separate pages. *Recommend dropdown.*
+7. **Tool layer**: reuse Luca's exact signatures or extend with a `scope` argument for family vs self? *Recommend extend.*
+8. **Verdict card**: also show in chat panel inline (recommended) or as a separate route?
+
+### Hard "no" list
+- No user auth, no multi-tenant.
+- No real Tangerine API integration (no sandbox available).
+- No OCR or receipt ingestion (data is pre-generated).
+- No mobile-native shell. Web only, mobile-framed in the demo where it matters.
+- No cross-session memory. One session per persona is enough.
